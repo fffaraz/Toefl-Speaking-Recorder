@@ -19,12 +19,12 @@ public:
 
 private slots:
     void on_actionAbout_triggered();
-
     void on_btnStart_clicked();
 
 private:
     Ui::MainWindow *ui;
     bool isStarted;
+    bool checkAtleast();
 };
 
 #endif // MAINWINDOW_H
