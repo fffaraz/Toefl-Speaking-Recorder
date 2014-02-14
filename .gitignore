@@ -10,6 +10,8 @@
 *.dll
 *.dylib
 
+*.exe
+
 # Qt-es
 
 *.pro.user
@@ -18,3 +20,7 @@ moc_*.cpp
 qrc_*.cpp
 Makefile
 *-build-*
+
+Makefile.*
+
+ui_*.h
