@@ -28,6 +28,7 @@ void MainWindow::on_btnStart_clicked()
         isStarted = true;
         ui->btnSkip->setEnabled(true);
         ui->btnStart->setText("Stop");
+        QSound::play(":/sounds/beep.wav");
     }
     else
     {
@@ -56,3 +57,4 @@ bool MainWindow::checkAtleast()
     }
     return true;
 }
+
