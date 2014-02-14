@@ -41,7 +41,7 @@ private:
     TIMER_STATE ts;
     bool isStarted;
     bool checkAtleast();
-    void updateUI();
+    void updateUI(bool state);
 };
 
 #endif // MAINWINDOW_H

@@ -31,7 +31,7 @@ void MainWindow::on_btnStart_clicked()
     {
         if(!checkAtleast()) return;
         isStarted = true;
-        updateUI();
+        updateUI(false);
         ts = TS_STARTED;
         timer.start(1000);
     }
@@ -39,7 +39,7 @@ void MainWindow::on_btnStart_clicked()
     {
         isStarted = false;
         ts = TS_STOPPED;
-        updateUI();
+        updateUI(true);
     }
 }
 
@@ -91,9 +91,9 @@ void MainWindow::timer_timeout()
     }
 }
 
-void MainWindow::updateUI()
+void MainWindow::updateUI(bool state)
 {
-    if(isStarted)
+    if(!state)
     {
         ui->btnSkip->setEnabled(true);
         ui->btnStart->setText("Stop");
