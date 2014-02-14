@@ -7,18 +7,18 @@
     <x>0</x>
     <y>0</y>
     <width>398</width>
-    <height>567</height>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Toefl Speaking Recorder</string>
+   <string>TOEFL iBT Speaking Recorder</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QGridLayout" name="gridLayout_7">
       <item row="0" column="0">
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="groupBox_1">
         <property name="title">
          <string>Question 1</string>
         </property>
@@ -433,7 +433,7 @@
       <item>
        <widget class="QLabel" name="lblStatus">
         <property name="text">
-         <string>Toefl Speaking Recorder</string>
+         <string>STATUS</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
