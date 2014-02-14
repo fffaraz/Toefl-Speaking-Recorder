@@ -6,6 +6,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 
+#include "dialogabout.h"
+
 enum TIMER_STATE
 {
     TS_STOPPED,

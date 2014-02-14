@@ -22,7 +22,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::aboutQt(this);
+    //QMessageBox::aboutQt(this);
+    DialogAbout da(this);
+    da.exec();
 }
 
 void MainWindow::on_btnStart_clicked()

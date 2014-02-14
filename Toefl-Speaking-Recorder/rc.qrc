@@ -3,5 +3,6 @@
         <file>sounds/beep.wav</file>
         <file>sounds/prep.wav</file>
         <file>sounds/speak.wav</file>
+        <file>baqery.jpg</file>
     </qresource>
 </RCC>
