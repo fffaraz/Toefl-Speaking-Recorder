@@ -40,6 +40,11 @@ void MainWindow::on_btnStart_clicked()
         iq.Q2P = ui->spbQ2P->value();
         iq.Q2R = ui->spbQ2R->value();
 
+        iq.Q3E = ui->chkQ3->isChecked();
+        iq.Q4E = ui->chkQ4->isChecked();
+        iq.Q5E = ui->chkQ5->isChecked();
+        iq.Q6E = ui->chkQ6->isChecked();
+
         tsr.start(iq);
     }
     else

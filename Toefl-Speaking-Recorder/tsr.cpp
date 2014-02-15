@@ -7,9 +7,43 @@ TSR::TSR(QObject *parent) :
     ts = TS_STOPPED;
 }
 
-void TSR::start(InputQ iq)
+void TSR::start(InputQ _iq)
 {
     _isStarted = true;
+    iq = _iq;
+
+    if(iq.Q1E)
+    {
+        syncedPlay(":/sounds/prep.wav");
+        syncedPlay(":/sounds/beep.wav");
+        ts = TS_Q1P;
+        return;
+    }
+    if(iq.Q2E)
+    {
+        ts = TS_Q2P;
+        return;
+    }
+    if(iq.Q3E)
+    {
+        ts = TS_Q2P;
+        return;
+    }
+    if(iq.Q4E)
+    {
+        ts = TS_Q2P;
+        return;
+    }
+    if(iq.Q5E)
+    {
+        ts = TS_Q2P;
+        return;
+    }
+    if(iq.Q6E)
+    {
+        ts = TS_Q2P;
+        return;
+    }
 }
 
 void TSR::stop()
@@ -27,6 +61,13 @@ bool TSR::isStarted()
     return _isStarted;
 }
 
+void TSR::syncedPlay(QString file)
+{
+    QSound s(file);
+    s.play();
+    while(!s.isFinished()) QCoreApplication::processEvents();
+}
+
 /*
     switch(ts)
     {
@@ -36,18 +77,7 @@ bool TSR::isStarted()
     case TS_STARTED:
         ui->lblStatus->setText("Started.");
         time.start();
-        if(ui->chkQ1->isChecked())
-        {
-            QSound::play(":/sounds/prep.wav");
-            //QSound::play(":/sounds/beep.wav");
-            ts = TS_Q1P;
-            break;
-        }
-        if(ui->chkQ2->isChecked()) { ts = TS_Q2P; break; }
-        if(ui->chkQ3->isChecked()) { ts = TS_Q1P; break; }
-        if(ui->chkQ4->isChecked()) { ts = TS_Q1P; break; }
-        if(ui->chkQ5->isChecked()) { ts = TS_Q1P; break; }
-        if(ui->chkQ6->isChecked()) { ts = TS_Q1P; break; }
+
         break;
     case TS_Q1P:
         ui->lblStatus->setText("Q1P");

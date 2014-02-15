@@ -14,6 +14,11 @@ struct InputQ
     bool Q2E;
     int  Q2P;
     int  Q2R;
+
+    bool Q3E;
+    bool Q4E;
+    bool Q5E;
+    bool Q6E;
 };
 
 enum TIMER_STATE
@@ -32,7 +37,7 @@ class TSR : public QObject
     Q_OBJECT
 public:
     explicit TSR(QObject *parent = 0);
-    void start(InputQ iq);
+    void start(InputQ _iq);
     void stop();
     void skip();
     bool isStarted();
@@ -43,8 +48,8 @@ private:
     QTime time;
     TIMER_STATE ts;
     bool _isStarted;
-
-
+    InputQ iq;
+    void syncedPlay(QString file);
 
 signals:
 
