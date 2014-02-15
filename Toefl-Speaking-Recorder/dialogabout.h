@@ -20,6 +20,7 @@ private slots:
 
 private:
     Ui::DialogAbout *ui;
+
 };
 
 #endif // DIALOGABOUT_H

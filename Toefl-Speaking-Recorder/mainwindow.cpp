@@ -8,11 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
-
-    isStarted = false;
-    ts = TS_STOPPED;
-
     connect(&timer,SIGNAL(timeout()), this, SLOT(timer_timeout()));
+    timer.start(500);
 }
 
 MainWindow::~MainWindow()
@@ -29,68 +26,32 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_btnStart_clicked()
 {
-    if(!isStarted)
+    if(!tsr.isStarted())
     {
         if(!checkAtleast()) return;
-        isStarted = true;
         updateUI(false);
-        ts = TS_STARTED;
-        timer.start(1000);
+        InputQ iq;
+
+        iq.Q1E = ui->chkQ1->isChecked();
+        iq.Q1P = ui->spbQ1P->value();
+        iq.Q1R = ui->spbQ1R->value();
+
+        iq.Q2E = ui->chkQ2->isChecked();
+        iq.Q2P = ui->spbQ2P->value();
+        iq.Q2R = ui->spbQ2R->value();
+
+        tsr.start(iq);
     }
     else
     {
-        isStarted = false;
-        ts = TS_STOPPED;
+        tsr.stop();
         updateUI(true);
     }
 }
 
 void MainWindow::timer_timeout()
 {
-    switch(ts)
-    {
-    case TS_STOPPED:
-        ui->lblStatus->setText("Stopped.");
-        break;
-    case TS_STARTED:
-        ui->lblStatus->setText("Started.");
-        time.start();
-        if(ui->chkQ1->isChecked())
-        {
-            QSound::play(":/sounds/prep.wav");
-            //QSound::play(":/sounds/beep.wav");
-            ts = TS_Q1P;
-            break;
-        }
-        if(ui->chkQ2->isChecked()) { ts = TS_Q2P; break; }
-        if(ui->chkQ3->isChecked()) { ts = TS_Q1P; break; }
-        if(ui->chkQ4->isChecked()) { ts = TS_Q1P; break; }
-        if(ui->chkQ5->isChecked()) { ts = TS_Q1P; break; }
-        if(ui->chkQ6->isChecked()) { ts = TS_Q1P; break; }
-        break;
-    case TS_Q1P:
-        ui->lblStatus->setText("Q1P");
-        ui->lblTime->setText(QString::number(time.elapsed()));
-        ui->pbar->setMaximum(ui->spbQ1P->text().toInt());
-        ui->pbar->setValue(time.elapsed() / 1000);
-        if(time.elapsed()/1000 >= ui->spbQ1P->text().toInt())
-        {
-            QSound::play(":/sounds/speak.wav");
-            //QSound::play(":/sounds/beep.wav");
-            time.start();
-            ts = TS_Q1R;
-        }
-        break;
-    case TS_Q1R:
-        ui->lblStatus->setText("Q1R");
-        break;
-    case TS_Q2P:
-        break;
-    case TS_Q2R:
-        break;
-    default:
-        break;
-    }
+    // update UI
 }
 
 void MainWindow::updateUI(bool state)
@@ -139,3 +100,8 @@ bool MainWindow::checkAtleast()
     return true;
 }
 
+
+void MainWindow::on_btnSkip_clicked()
+{
+    tsr.skip();
+}

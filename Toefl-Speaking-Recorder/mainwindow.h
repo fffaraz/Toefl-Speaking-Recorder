@@ -1,23 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtCore>
-#include <QtMultimedia>
 #include <QMainWindow>
 #include <QMessageBox>
 
 #include "dialogabout.h"
-
-enum TIMER_STATE
-{
-    TS_STOPPED,
-    TS_STARTED,
-    TS_Q1P,
-    TS_Q1R,
-    TS_Q2P,
-    TS_Q2R,
-
-};
+#include "tsr.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,12 +24,12 @@ private slots:
     void on_btnStart_clicked();
     void timer_timeout();
 
+    void on_btnSkip_clicked();
+
 private:
     Ui::MainWindow *ui;
+    TSR tsr;
     QTimer timer;
-    QTime time;
-    TIMER_STATE ts;
-    bool isStarted;
     bool checkAtleast();
     void updateUI(bool state);
 };
