@@ -23,6 +23,15 @@ void MainWindow::on_actionAbout_triggered()
     da.exec();
 }
 
+void MainWindow::on_actionVersion_triggered()
+{
+    QMessageBox mbox;
+    mbox.setWindowTitle("Version Information");
+    mbox.setIcon(QMessageBox::Information);
+    mbox.setText("TOEFL iBT Speaking Recorder \nVersion 0.1.0 \n\nDeveloped by Faraz Fallahi \nfffaraz@gmail.com \nwww.FRZ.ir");
+    mbox.exec();
+}
+
 void MainWindow::on_btnStart_clicked()
 {
     if(!tsr.isStarted())

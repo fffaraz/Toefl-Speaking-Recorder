@@ -21,6 +21,7 @@ public:
 
 private slots:
     void on_actionAbout_triggered();
+    void on_actionVersion_triggered();
     void on_btnStart_clicked();
     void on_btnSkip_clicked();
     void timer_timeout();
