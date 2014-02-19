@@ -13,7 +13,7 @@ class TSR : public QObject
 
 public:
     explicit TSR(QObject *parent = 0);
-    void start(InputQ _iq);
+    void start(InputQ iq);
     void stop();
     void skip();
     bool isStarted();
@@ -21,11 +21,15 @@ public:
 
 private:
     QTime time;
+    QTimer timer;
     TIMER_STATE ts;
     InputQ iq;
+    volatile bool inProcess;
+    bool finishedQ[6];
 
 private slots:
     void syncedPlay(QString file);
+    void findNextQ();
     void process();
 
 signals:

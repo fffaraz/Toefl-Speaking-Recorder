@@ -21,11 +21,11 @@ enum TIMER_STATE
 {
     TS_STOPPED,
 
-    TS_Q1Pp,
-    TS_Q1Pt,
-    TS_Q1Rp,
-    TS_Q1Rt,
-    TS_Q1Rf,
+    TS_Q1Pp, //play
+    TS_Q1Pt, //time
+    TS_Q1Rp, //play
+    TS_Q1Rt, //time
+    TS_Q1Rf, //finished
 
     TS_Q2Pp,
     TS_Q2Pt,

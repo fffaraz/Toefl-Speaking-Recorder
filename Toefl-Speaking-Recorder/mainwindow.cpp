@@ -62,6 +62,7 @@ void MainWindow::on_btnSkip_clicked()
 void MainWindow::timer_timeout()
 {
     // update UI
+    if(!tsr.isStarted()) updateUI(true);
     //    ui->lblStatus->setText("Q1P");
     //    ui->lblTime->setText(QString::number(time.elapsed()));
     //    ui->pbar->setMaximum(ui->spbQ1P->text().toInt());
