@@ -6,6 +6,8 @@ TSR::TSR(QObject *parent) :
     memset(finishedQ, 0, sizeof(finishedQ));
     ts = TS_STOPPED;
     inProcess = false;
+    elapsedTime = 0;
+    totalTime = 0;
     connect(this, SIGNAL(queueProcess()), this, SLOT(process()), Qt::QueuedConnection);
     connect(&timer, SIGNAL(timeout()), this, SLOT(process()));
     timer.start(500);
@@ -21,6 +23,8 @@ void TSR::start(InputQ iq)
 void TSR::stop()
 {
     ts = TS_STOPPED;
+    elapsedTime = 0;
+    totalTime = 0;
 }
 
 void TSR::skip()
@@ -33,9 +37,19 @@ bool TSR::isStarted()
     return ts != TS_STOPPED;
 }
 
-int TSR::getState()
+QString TSR::getState()
 {
-    return ts;
+    return strState;
+}
+
+int TSR::getElapsedTime()
+{
+    return elapsedTime;
+}
+
+int TSR::getTotalTime()
+{
+    return totalTime;
 }
 
 void TSR::findNextQ()
@@ -64,36 +78,44 @@ void TSR::process()
     switch (ts)
     {
     case TS_STOPPED:
+        strState = "Stopped";
         break;
 
     case TS_Q1Pp:
+        strState = "Question 1 Prepare Play";
         //syncedPlay(":/sounds/q1.wav");
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
-        time.start();
         ts = TS_Q1Pt;
+        totalTime = iq.Q1P;
+        time.start();
         break;
 
     case TS_Q1Pt:
-        if(time.elapsed() / 1000 >= iq.Q1P)
-            ts = TS_Q1Rp;
+        strState = "Question 1 Prepare Time";
+        elapsedTime = time.elapsed() / 1000;
+        if(elapsedTime >= totalTime) ts = TS_Q1Rp;
         break;
 
     case TS_Q1Rp:
-        syncedPlay(":/sounds/prep.wav"); //FIXME
+        strState = "Question 1 Response Play";
+        syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
-        time.start();
         ts = TS_Q1Rt;
+        totalTime = iq.Q1R;
+        time.start();
         //START RECORDING
         break;
 
     case TS_Q1Rt:
+        strState = "Question 1 Response Time";
         //RECORDING
-        if(time.elapsed() / 1000 >= iq.Q1R)
-            ts = TS_Q1Rf;
+        elapsedTime = time.elapsed() / 1000;
+        if(elapsedTime >= totalTime) ts = TS_Q1Rf;
         break;
 
     case TS_Q1Rf:
+        strState = "Question 1 Response Finished";
         syncedPlay(":/sounds/beep.wav");
         //STOP RECORDING
         finishedQ[0] = true;

@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
     connect(&timer,SIGNAL(timeout()), this, SLOT(timer_timeout()));
-    timer.start(500);
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +45,7 @@ void MainWindow::on_btnStart_clicked()
         iq.Q6E = ui->chkQ6->isChecked();
 
         tsr.start(iq);
+        if(!timer.isActive()) timer.start(500);
     }
     else
     {
@@ -63,10 +63,20 @@ void MainWindow::timer_timeout()
 {
     // update UI
     if(!tsr.isStarted()) updateUI(true);
-    //    ui->lblStatus->setText("Q1P");
-    //    ui->lblTime->setText(QString::number(time.elapsed()));
-    //    ui->pbar->setMaximum(ui->spbQ1P->text().toInt());
-    //    ui->pbar->setValue(time.elapsed() / 1000);
+    ui->lblStatus->setText(tsr.getState());
+    int elspd =tsr.getElapsedTime();
+    QString strTime = QString("%1").arg(elspd, 2, 10, QChar('0'));
+    ui->lblTime->setText("00:" + strTime);
+    if(tsr.getTotalTime() > 0)
+    {
+        ui->pbar->setMaximum(tsr.getTotalTime());
+        ui->pbar->setValue(elspd);
+    }
+    else
+    {
+        ui->pbar->setMaximum(1);
+        ui->pbar->setValue(0);
+    }
 }
 
 void MainWindow::updateUI(bool state)

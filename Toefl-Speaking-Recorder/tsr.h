@@ -17,15 +17,20 @@ public:
     void stop();
     void skip();
     bool isStarted();
-    int  getState();
+    QString  getState();
+    int  getElapsedTime();
+    int  getTotalTime();
 
 private:
     QTime time;
     QTimer timer;
     TIMER_STATE ts;
     InputQ iq;
-    volatile bool inProcess;
+    QString strState;
+    bool inProcess;
     bool finishedQ[6];
+    int  elapsedTime;
+    int  totalTime;
 
 private slots:
     void syncedPlay(QString file);
