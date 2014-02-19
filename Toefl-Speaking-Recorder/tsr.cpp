@@ -13,8 +13,18 @@ TSR::TSR(QObject *parent) :
     timer.start(500);
 }
 
+void TSR::syncedPlay(QString file)
+{
+    QSound s(file);
+    s.play();
+    while(!s.isFinished()) QCoreApplication::processEvents();
+    elapsedTime = 0; totalTime = 0;
+}
+
 void TSR::start(InputQ iq)
 {
+    memset(finishedQ, 0, sizeof(finishedQ));
+    elapsedTime = 0; totalTime = 0;
     this->iq = iq;
     findNextQ();
     queueProcess();
@@ -23,13 +33,13 @@ void TSR::start(InputQ iq)
 void TSR::stop()
 {
     ts = TS_STOPPED;
-    elapsedTime = 0;
-    totalTime = 0;
+    elapsedTime = 0; totalTime = 0;
 }
 
 void TSR::skip()
 {
-    //TODO
+    //FIXME
+    //ts=(TIMER_STATE)((int)ts+1);
 }
 
 bool TSR::isStarted()
@@ -54,19 +64,20 @@ int TSR::getTotalTime()
 
 void TSR::findNextQ()
 {
+    elapsedTime = 0; totalTime = 0;
     if(false) return;
     else if(iq.Q1E && !finishedQ[0])
         ts = TS_Q1Pp;
     else if(iq.Q2E && !finishedQ[1])
         ts = TS_Q2Pp;
     else if(iq.Q3E && !finishedQ[2])
-        ts = TS_Q2Pp;
+        ts = TS_STOPPED;
     else if(iq.Q4E && !finishedQ[3])
-        ts = TS_Q2Pp;
+        ts = TS_STOPPED;
     else if(iq.Q5E && !finishedQ[4])
-        ts = TS_Q2Pp;
+        ts = TS_STOPPED;
     else if(iq.Q6E && !finishedQ[5])
-        ts = TS_Q2Pp;
+        ts = TS_STOPPED;
     else
         ts = TS_STOPPED;
 }
@@ -122,16 +133,50 @@ void TSR::process()
         findNextQ();
         break;
 
+    case TS_Q2Pp:
+        strState = "Question 2 Prepare Play";
+        //syncedPlay(":/sounds/q2.wav");
+        syncedPlay(":/sounds/prep.wav");
+        syncedPlay(":/sounds/beep.wav");
+        ts = TS_Q2Pt;
+        totalTime = iq.Q2P;
+        time.start();
+        break;
+
+    case TS_Q2Pt:
+        strState = "Question 2 Prepare Time";
+        elapsedTime = time.elapsed() / 1000;
+        if(elapsedTime >= totalTime) ts = TS_Q2Rp;
+        break;
+
+    case TS_Q2Rp:
+        strState = "Question 2 Response Play";
+        syncedPlay(":/sounds/speak.wav");
+        syncedPlay(":/sounds/beep.wav");
+        ts = TS_Q2Rt;
+        totalTime = iq.Q2R;
+        time.start();
+        //START RECORDING
+        break;
+
+    case TS_Q2Rt:
+        strState = "Question 2 Response Time";
+        //RECORDING
+        elapsedTime = time.elapsed() / 1000;
+        if(elapsedTime >= totalTime) ts = TS_Q2Rf;
+        break;
+
+    case TS_Q2Rf:
+        strState = "Question 2 Response Finished";
+        syncedPlay(":/sounds/beep.wav");
+        //STOP RECORDING
+        finishedQ[1] = true;
+        findNextQ();
+        break;
+
     default:
         qDebug() << "TSR::process -> default!";
         break;
     }
     inProcess = false;
-}
-
-void TSR::syncedPlay(QString file)
-{
-    QSound s(file);
-    s.play();
-    while(!s.isFinished()) QCoreApplication::processEvents();
 }
