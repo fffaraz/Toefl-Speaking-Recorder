@@ -22,9 +22,8 @@ public:
 private slots:
     void on_actionAbout_triggered();
     void on_btnStart_clicked();
-    void timer_timeout();
-
     void on_btnSkip_clicked();
+    void timer_timeout();
 
 private:
     Ui::MainWindow *ui;

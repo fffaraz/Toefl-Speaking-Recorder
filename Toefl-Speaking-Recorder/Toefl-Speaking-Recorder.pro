@@ -19,7 +19,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     tsr.h \
-    dialogabout.h
+    dialogabout.h \
+    structs.h
 
 FORMS    += mainwindow.ui \
     dialogabout.ui

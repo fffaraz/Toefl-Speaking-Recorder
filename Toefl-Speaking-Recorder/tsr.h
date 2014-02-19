@@ -5,55 +5,34 @@
 #include <QtCore>
 #include <QtMultimedia>
 
-struct InputQ
-{
-    bool Q1E;
-    int  Q1P;
-    int  Q1R;
-
-    bool Q2E;
-    int  Q2P;
-    int  Q2R;
-
-    bool Q3E;
-    bool Q4E;
-    bool Q5E;
-    bool Q6E;
-};
-
-enum TIMER_STATE
-{
-    TS_STOPPED,
-    TS_STARTED,
-    TS_Q1P,
-    TS_Q1R,
-    TS_Q2P,
-    TS_Q2R,
-
-};
+#include "structs.h"
 
 class TSR : public QObject
 {
     Q_OBJECT
+
 public:
     explicit TSR(QObject *parent = 0);
     void start(InputQ _iq);
     void stop();
     void skip();
     bool isStarted();
-
-
+    int  getState();
 
 private:
     QTime time;
     TIMER_STATE ts;
-    bool _isStarted;
     InputQ iq;
+
+private slots:
     void syncedPlay(QString file);
+    void process();
 
 signals:
+    void queueProcess();
 
 public slots:
+
 
 };
 

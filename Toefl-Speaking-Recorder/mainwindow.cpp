@@ -54,9 +54,18 @@ void MainWindow::on_btnStart_clicked()
     }
 }
 
+void MainWindow::on_btnSkip_clicked()
+{
+    tsr.skip();
+}
+
 void MainWindow::timer_timeout()
 {
     // update UI
+    //    ui->lblStatus->setText("Q1P");
+    //    ui->lblTime->setText(QString::number(time.elapsed()));
+    //    ui->pbar->setMaximum(ui->spbQ1P->text().toInt());
+    //    ui->pbar->setValue(time.elapsed() / 1000);
 }
 
 void MainWindow::updateUI(bool state)
@@ -87,13 +96,14 @@ void MainWindow::updateUI(bool state)
 
 bool MainWindow::checkAtleast()
 {
-    if(!ui->chkQ1->isChecked() &&
-       !ui->chkQ2->isChecked() &&
-       !ui->chkQ3->isChecked() &&
-       !ui->chkQ4->isChecked() &&
-       !ui->chkQ5->isChecked() &&
-       !ui->chkQ6->isChecked()
-      )
+    if(
+            !ui->chkQ1->isChecked() &&
+            !ui->chkQ2->isChecked() &&
+            !ui->chkQ3->isChecked() &&
+            !ui->chkQ4->isChecked() &&
+            !ui->chkQ5->isChecked() &&
+            !ui->chkQ6->isChecked()
+            )
     {
         QMessageBox alarm;
         alarm.setWindowTitle("Warning");
@@ -103,10 +113,4 @@ bool MainWindow::checkAtleast()
         return false;
     }
     return true;
-}
-
-
-void MainWindow::on_btnSkip_clicked()
-{
-    tsr.skip();
 }
