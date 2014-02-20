@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Toefl-Speaking-Recorder
 TEMPLATE = app
+CONFIG  += release
 
 win32:RC_FILE = myapp.rc
 QMAKE_CXXFLAGS += -std=c++11

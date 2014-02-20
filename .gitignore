@@ -11,6 +11,7 @@
 *.dylib
 
 *.exe
+*.7z
 
 # Qt-es
 
