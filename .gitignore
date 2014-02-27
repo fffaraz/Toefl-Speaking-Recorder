@@ -12,6 +12,8 @@
 
 *.exe
 *.7z
+*.wav
+*.amr
 
 # Qt-es
 
