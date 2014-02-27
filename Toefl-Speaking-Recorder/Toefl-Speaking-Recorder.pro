@@ -18,15 +18,18 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     tsr.cpp \
-    dialogabout.cpp
+    dialogabout.cpp \
+    dialogaudiosettings.cpp
 
 HEADERS  += mainwindow.h \
     tsr.h \
     dialogabout.h \
-    structs.h
+    structs.h \
+    dialogaudiosettings.h
 
 FORMS    += mainwindow.ui \
-    dialogabout.ui
+    dialogabout.ui \
+    dialogaudiosettings.ui
 
 RESOURCES += \
     rc.qrc
