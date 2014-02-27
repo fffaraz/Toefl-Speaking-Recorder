@@ -22,6 +22,7 @@ TSR::TSR(QObject *parent) :
     audioRecorder->setEncodingSettings(audioSettings);
     //audioRecorder->setAudioInput(audioRecorder->defaultAudioInput());
     //audioRecorder->setAudioInput(audioRecorder->audioInputs()[0]);
+    //audioRecorder->setVolume();
 
     connect(this, SIGNAL(queueProcess()), this, SLOT(process()), Qt::QueuedConnection);
     connect(&timer, SIGNAL(timeout()), this, SLOT(process()));
