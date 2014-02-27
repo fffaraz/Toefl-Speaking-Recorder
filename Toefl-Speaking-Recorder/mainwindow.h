@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QFileDialog>
 
 #include "dialogabout.h"
 #include "tsr.h"
@@ -22,6 +23,7 @@ public:
 private slots:
     void on_actionAbout_triggered();
     void on_actionVersion_triggered();
+    void on_actionSet_Location_triggered();
     void on_btnStart_clicked();
     void on_btnSkip_clicked();
     void timer_timeout();

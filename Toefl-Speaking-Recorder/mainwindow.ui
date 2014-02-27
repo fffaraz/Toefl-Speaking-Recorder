@@ -539,6 +539,14 @@
     <addaction name="actionAbout"/>
     <addaction name="actionVersion"/>
    </widget>
+   <widget class="QMenu" name="menuRecord">
+    <property name="title">
+     <string>Record</string>
+    </property>
+    <addaction name="actionSet_Location"/>
+    <addaction name="actionAudio_Settings"/>
+   </widget>
+   <addaction name="menuRecord"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -550,6 +558,16 @@
   <action name="actionVersion">
    <property name="text">
     <string>Version...</string>
+   </property>
+  </action>
+  <action name="actionSet_Location">
+   <property name="text">
+    <string>Set Location...</string>
+   </property>
+  </action>
+  <action name="actionAudio_Settings">
+   <property name="text">
+    <string>Audio Settings...</string>
    </property>
   </action>
  </widget>

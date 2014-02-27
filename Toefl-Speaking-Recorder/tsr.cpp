@@ -8,6 +8,21 @@ TSR::TSR(QObject *parent) :
     inProcess = false;
     elapsedTime = 0;
     totalTime = 0;
+
+    saveLoc = QDir::currentPath();
+    audioRecorder = new QAudioRecorder;
+
+    QAudioEncoderSettings audioSettings;
+    //audioSettings.setCodec("audio/amr");
+    audioSettings.setQuality(QMultimedia::LowQuality);
+    audioSettings.setChannelCount(1);
+    //audioSettings.setSampleRate();
+    //audioSettings.setBitRate();
+
+    audioRecorder->setEncodingSettings(audioSettings);
+    //audioRecorder->setAudioInput(audioRecorder->defaultAudioInput());
+    //audioRecorder->setAudioInput(audioRecorder->audioInputs()[0]);
+
     connect(this, SIGNAL(queueProcess()), this, SLOT(process()), Qt::QueuedConnection);
     connect(&timer, SIGNAL(timeout()), this, SLOT(process()));
     timer.start(500);
@@ -19,6 +34,11 @@ void TSR::syncedPlay(QString file)
     s.play();
     while(!s.isFinished()) QCoreApplication::processEvents();
     elapsedTime = 0; totalTime = 0;
+}
+
+void TSR::setSaveLoc(QString loc)
+{
+    saveLoc = loc;
 }
 
 void TSR::start(InputQ iq)
@@ -33,7 +53,6 @@ void TSR::start(InputQ iq)
 void TSR::stop()
 {
     ts = TS_STOPPED;
-    elapsedTime = 0; totalTime = 0;
 }
 
 void TSR::skip()
@@ -90,6 +109,8 @@ void TSR::process()
     {
     case TS_STOPPED:
         strState = "Stopped";
+        elapsedTime = 0; totalTime = 0;
+        audioRecorder->stop();
         break;
 
     case TS_Q1Pp:
@@ -116,6 +137,8 @@ void TSR::process()
         totalTime = iq.Q1R;
         time.start();
         //START RECORDING
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q1"));
+        audioRecorder->record();
         break;
 
     case TS_Q1Rt:
@@ -131,6 +154,7 @@ void TSR::process()
         findNextQ();
         syncedPlay(":/sounds/beep.wav");
         //STOP RECORDING
+        audioRecorder->stop();
         break;
 
     case TS_Q2Pp:
@@ -157,6 +181,8 @@ void TSR::process()
         totalTime = iq.Q2R;
         time.start();
         //START RECORDING
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q2"));
+        audioRecorder->record();
         break;
 
     case TS_Q2Rt:
@@ -172,6 +198,7 @@ void TSR::process()
         findNextQ();
         syncedPlay(":/sounds/beep.wav");
         //STOP RECORDING
+        audioRecorder->stop();
         break;
 
     default:

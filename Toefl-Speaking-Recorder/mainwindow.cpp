@@ -16,22 +16,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionAbout_triggered()
-{
-    //QMessageBox::aboutQt(this);
-    DialogAbout da(this);
-    da.exec();
-}
-
-void MainWindow::on_actionVersion_triggered()
-{
-    QMessageBox mbox;
-    mbox.setWindowTitle("Version Information");
-    mbox.setIcon(QMessageBox::Information);
-    mbox.setText("TOEFL iBT Speaking Recorder \nVersion 0.1.0 \n\nDeveloped by Faraz Fallahi \nfffaraz@gmail.com \nwww.FRZ.ir");
-    mbox.exec();
-}
-
 void MainWindow::on_btnStart_clicked()
 {
     if(!tsr.isStarted())
@@ -133,4 +117,31 @@ bool MainWindow::checkAtleast()
         return false;
     }
     return true;
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    //QMessageBox::aboutQt(this);
+    DialogAbout da(this);
+    da.exec();
+}
+
+void MainWindow::on_actionVersion_triggered()
+{
+    QMessageBox mbox;
+    mbox.setWindowTitle("Version Information");
+    mbox.setIcon(QMessageBox::Information);
+    mbox.setText("TOEFL iBT Speaking Recorder \nVersion 0.2 \n\nDeveloped by Faraz Fallahi \nfffaraz@gmail.com \nwww.FRZ.ir");
+    mbox.exec();
+}
+
+void MainWindow::on_actionSet_Location_triggered()
+{
+    QFileDialog fd(this, "Save Directory", QDir::currentPath());
+    fd.setFileMode(QFileDialog::Directory);
+    //fd.setOption(QFileDialog::ShowDirsOnly);
+    fd.exec();
+    QString dir = fd.directory().absolutePath();
+    //qDebug() << dir;
+    tsr.setSaveLoc(dir);
 }

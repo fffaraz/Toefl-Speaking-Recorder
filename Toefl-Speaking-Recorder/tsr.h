@@ -20,6 +20,7 @@ public:
     QString  getState();
     int  getElapsedTime();
     int  getTotalTime();
+    void setSaveLoc(QString loc);
 
 private:
     QTime time;
@@ -31,6 +32,8 @@ private:
     bool finishedQ[6];
     int  elapsedTime;
     int  totalTime;
+    QAudioRecorder *audioRecorder;
+    QString saveLoc;
 
 private slots:
     void syncedPlay(QString file);
