@@ -541,7 +541,7 @@
    </widget>
    <widget class="QMenu" name="menuRecord">
     <property name="title">
-     <string>Record</string>
+     <string>Recording</string>
     </property>
     <addaction name="actionSet_Location"/>
     <addaction name="actionAudio_Settings"/>
