@@ -142,7 +142,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_13">
+            <widget class="QSpinBox" name="spbQ3Reading">
              <property name="maximum">
               <number>120</number>
              </property>
@@ -159,7 +159,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_5">
+            <widget class="QSpinBox" name="spbQ3P">
              <property name="maximum">
               <number>120</number>
              </property>
@@ -176,7 +176,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBox_6">
+            <widget class="QSpinBox" name="spbQ3R">
              <property name="value">
               <number>60</number>
              </property>
@@ -190,7 +190,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="btnQ3Listening">
              <property name="text">
               <string>Load file</string>
              </property>
@@ -224,7 +224,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_14">
+            <widget class="QSpinBox" name="spbQ4Reading">
              <property name="maximum">
               <number>120</number>
              </property>
@@ -241,7 +241,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_7">
+            <widget class="QSpinBox" name="spbQ4P">
              <property name="maximum">
               <number>120</number>
              </property>
@@ -258,7 +258,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBox_8">
+            <widget class="QSpinBox" name="spbQ4R">
              <property name="value">
               <number>60</number>
              </property>
@@ -272,7 +272,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="btnQ4Listening">
              <property name="text">
               <string>Load file</string>
              </property>
@@ -306,7 +306,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_9">
+            <widget class="QSpinBox" name="spbQ5P">
              <property name="maximum">
               <number>120</number>
              </property>
@@ -323,7 +323,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_10">
+            <widget class="QSpinBox" name="spbQ5R">
              <property name="value">
               <number>60</number>
              </property>
@@ -337,7 +337,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="btnQ5Listening">
              <property name="text">
               <string>Load file</string>
              </property>
@@ -371,7 +371,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_11">
+            <widget class="QSpinBox" name="spbQ6P">
              <property name="maximum">
               <number>120</number>
              </property>
@@ -388,7 +388,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_12">
+            <widget class="QSpinBox" name="spbQ6R">
              <property name="value">
               <number>60</number>
              </property>
@@ -402,7 +402,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="btnQ6Listening">
              <property name="text">
               <string>Load file</string>
              </property>

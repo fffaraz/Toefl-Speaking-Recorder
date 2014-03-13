@@ -33,9 +33,26 @@ void MainWindow::on_btnStart_clicked()
         iq.Q2R = ui->spbQ2R->value();
 
         iq.Q3E = ui->chkQ3->isChecked();
+        iq.Q3P = ui->spbQ3P->value();
+        iq.Q3R = ui->spbQ3R->value();
+        iq.Q3Reading = ui->spbQ3Reading->value();
+        iq.Q3Listening = listeningFiles[0];
+
         iq.Q4E = ui->chkQ4->isChecked();
+        iq.Q4P = ui->spbQ4P->value();
+        iq.Q4R = ui->spbQ4R->value();
+        iq.Q4Reading = ui->spbQ4Reading->value();
+        iq.Q4Listening = listeningFiles[1];
+
         iq.Q5E = ui->chkQ5->isChecked();
+        iq.Q5P = ui->spbQ5P->value();
+        iq.Q5R = ui->spbQ5R->value();
+        iq.Q4Listening = listeningFiles[2];
+
         iq.Q6E = ui->chkQ6->isChecked();
+        iq.Q6P = ui->spbQ6P->value();
+        iq.Q6R = ui->spbQ6R->value();
+        iq.Q6Listening = listeningFiles[3];
 
         tsr.start(iq);
         if(!timer.isActive()) timer.start(500);
@@ -131,7 +148,7 @@ void MainWindow::on_actionVersion_triggered()
     QMessageBox mbox;
     mbox.setWindowTitle("Version Information");
     mbox.setIcon(QMessageBox::Information);
-    mbox.setText("TOEFL iBT Speaking Recorder \nVersion 0.2 \n\nDeveloped by Faraz Fallahi \nfffaraz@gmail.com \nwww.FRZ.ir");
+    mbox.setText("TOEFL iBT Speaking Recorder \nVersion 0.3 \n\nDeveloped by Faraz Fallahi \nfffaraz@gmail.com \nwww.FRZ.ir");
     mbox.exec();
 }
 
@@ -139,9 +156,44 @@ void MainWindow::on_actionSet_Location_triggered()
 {
     QFileDialog fd(this, "Save Directory", QDir::currentPath());
     fd.setFileMode(QFileDialog::Directory);
-    //fd.setOption(QFileDialog::ShowDirsOnly);
-    fd.exec();
+    fd.setOption(QFileDialog::ShowDirsOnly); //?
+    if(!fd.exec()) return;
     QString dir = fd.directory().absolutePath();
     //qDebug() << dir;
     tsr.setSaveLoc(dir);
+}
+
+void MainWindow::on_actionAudio_Settings_triggered()
+{
+    DialogAudioSettings da(this);
+    da.exec();
+}
+
+QString MainWindow::loadListeningFile()
+{
+    QFileDialog fd(this, "Listening File", QDir::currentPath());
+    if(!fd.exec()) return "";
+    QString file = fd.selectedFiles()[0];
+    //qDebug() << file;
+    return file;
+}
+
+void MainWindow::on_btnQ3Listening_clicked()
+{
+    listeningFiles[0] = loadListeningFile();
+}
+
+void MainWindow::on_btnQ4Listening_clicked()
+{
+    listeningFiles[1] = loadListeningFile();
+}
+
+void MainWindow::on_btnQ5Listening_clicked()
+{
+    listeningFiles[2] = loadListeningFile();
+}
+
+void MainWindow::on_btnQ6Listening_clicked()
+{
+    listeningFiles[3] = loadListeningFile();
 }

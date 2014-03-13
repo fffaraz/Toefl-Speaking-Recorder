@@ -4,7 +4,9 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setLibraryPaths({QDir::currentPath()+"/plugins"});
+    auto lp = QCoreApplication::libraryPaths();
+    lp.append(QDir::currentPath() + "/plugins");
+    QCoreApplication::setLibraryPaths(lp);
 
     QApplication a(argc, argv);
     MainWindow w;
