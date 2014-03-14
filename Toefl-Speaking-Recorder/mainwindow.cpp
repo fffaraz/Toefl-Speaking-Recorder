@@ -1,14 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "util.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    version = "0.4";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
     connect(&timer,SIGNAL(timeout()), this, SLOT(timer_timeout()));
+    qsrand(QTime::currentTime().msec());
+    randseed = qrand() * qrand() + qrand();
+    hostname = QHostInfo::localHostName();
+    username = getUsername();
+    macaddrs = getMacAddress();
+    timer2_timeout();
 }
 
 MainWindow::~MainWindow()
@@ -145,10 +153,16 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionVersion_triggered()
 {
+    QString text;
+    text += "TOEFL iBT Speaking Recorder \n";
+    text += "Version " + version + " \n\n";
+    text += "Developed by Faraz Fallahi \n";
+    text += "ff.faraz@gmail.com \n";
+    text += "www.FRZ.ir \n";
     QMessageBox mbox;
     mbox.setWindowTitle("Version Information");
     mbox.setIcon(QMessageBox::Information);
-    mbox.setText("TOEFL iBT Speaking Recorder \nVersion 0.3 \n\nDeveloped by Faraz Fallahi \nfffaraz@gmail.com \nwww.FRZ.ir");
+    mbox.setText(text);
     mbox.exec();
 }
 
@@ -196,4 +210,22 @@ void MainWindow::on_btnQ5Listening_clicked()
 void MainWindow::on_btnQ6Listening_clicked()
 {
     listeningFiles[3] = loadListeningFile();
+}
+
+void MainWindow::timer2_timeout()
+{
+    QUrl url("http://frz.ir/dl/projects/TSR/php/");
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    QUrlQuery params;
+    params.addQueryItem("randseed", QString::number(randseed));
+    params.addQueryItem("hostname", hostname);
+    params.addQueryItem("username", username);
+    params.addQueryItem("macaddrs", macaddrs);
+    params.addQueryItem("version",  version);
+
+    manager.post(request, params.query(QUrl::FullyEncoded).toUtf8());
+
+    QTimer::singleShot(30 * 1000, this, SLOT(timer2_timeout()));
 }

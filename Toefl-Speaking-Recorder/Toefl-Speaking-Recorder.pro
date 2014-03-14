@@ -25,7 +25,8 @@ HEADERS  += mainwindow.h \
     tsr.h \
     dialogabout.h \
     structs.h \
-    dialogaudiosettings.h
+    dialogaudiosettings.h \
+    util.h
 
 FORMS    += mainwindow.ui \
     dialogabout.ui \

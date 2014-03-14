@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QNetworkAccessManager>
 
 #include "dialogabout.h"
 #include "dialogaudiosettings.h"
@@ -30,6 +31,7 @@ private slots:
     void on_btnStart_clicked();
     void on_btnSkip_clicked();
     void timer_timeout();
+    void timer2_timeout();
 
     void on_btnQ3Listening_clicked();
     void on_btnQ4Listening_clicked();
@@ -40,7 +42,13 @@ private:
     Ui::MainWindow *ui;
     TSR tsr;
     QTimer timer;
+    QString version;
+    quint32 randseed;
+    QString hostname;
+    QString username;
+    QString macaddrs;
     QString listeningFiles[4];
+    QNetworkAccessManager manager;
     bool checkAtleast();
     void updateUI(bool state);
     QString loadListeningFile();
