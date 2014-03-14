@@ -52,6 +52,7 @@ private:
     bool checkAtleast();
     void updateUI(bool state);
     QString loadListeningFile();
+    void changePBarStyle(bool recording);
 };
 
 #endif // MAINWINDOW_H

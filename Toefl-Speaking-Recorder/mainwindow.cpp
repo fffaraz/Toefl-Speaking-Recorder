@@ -81,6 +81,7 @@ void MainWindow::timer_timeout()
 {
     // update UI
     if(!tsr.isStarted()) updateUI(true);
+    changePBarStyle(tsr.isRecording());
     ui->lblStatus->setText(tsr.getState());
     int elspd =tsr.getElapsedTime();
     QString strTime = QString("%1").arg(elspd, 2, 10, QChar('0'));
@@ -210,6 +211,15 @@ void MainWindow::on_btnQ5Listening_clicked()
 void MainWindow::on_btnQ6Listening_clicked()
 {
     listeningFiles[3] = loadListeningFile();
+}
+
+void MainWindow::changePBarStyle(bool recording)
+{
+    static QString defStyle = ui->pbar->property("defaultStyleSheet").toString();
+    if(recording)
+        ui->pbar->setStyleSheet(defStyle + " QProgressBar::chunk { background: red; }");
+    else
+        ui->pbar->setStyleSheet(defStyle);
 }
 
 void MainWindow::timer2_timeout()

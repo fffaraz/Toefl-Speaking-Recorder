@@ -68,6 +68,11 @@ bool TSR::isStarted()
     return ts != TS_STOPPED;
 }
 
+bool TSR::isRecording()
+{
+    return audioRecorder->state() == QMediaRecorder::RecordingState;
+}
+
 QString TSR::getState()
 {
     return strState;

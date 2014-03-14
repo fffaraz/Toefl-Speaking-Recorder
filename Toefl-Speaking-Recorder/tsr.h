@@ -17,6 +17,7 @@ public:
     void stop();
     void skip();
     bool isStarted();
+    bool isRecording();
     QString  getState();
     int  getElapsedTime();
     int  getTotalTime();
