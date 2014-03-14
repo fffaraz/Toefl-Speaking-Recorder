@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "0.4";
+    version = "0.5";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();

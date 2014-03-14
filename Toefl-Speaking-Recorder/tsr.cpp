@@ -118,6 +118,7 @@ void TSR::process()
     case TS_Q1Pp:
         strState = "Question 1 Prepare Play";
         ts = TS_Q1Pt;
+        if(iq.Q1P == 0) break;
         //syncedPlay(":/sounds/q1.wav");
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -162,6 +163,7 @@ void TSR::process()
     case TS_Q2Pp:
         strState = "Question 2 Prepare Play";
         ts = TS_Q2Pt;
+        if(iq.Q2P == 0) break;
         //syncedPlay(":/sounds/q2.wav");
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -206,6 +208,7 @@ void TSR::process()
     case TS_Q3Readp:
         strState = "Question 3 Reading";
         ts = TS_Q3Readt;
+        if(iq.Q3Reading == 0) break;
         //syncedPlay(":/sounds/q3.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q3Reading;
@@ -227,6 +230,7 @@ void TSR::process()
     case TS_Q3Pp:
         strState = "Question 3 Prepare Play";
         ts = TS_Q3Pt;
+        if(iq.Q3P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q3P;
@@ -270,6 +274,7 @@ void TSR::process()
     case TS_Q4Readp:
         strState = "Question 4 Reading";
         ts = TS_Q4Readt;
+        if(iq.Q4Reading == 0) break;
         //syncedPlay(":/sounds/q4.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q4Reading;
@@ -291,6 +296,7 @@ void TSR::process()
     case TS_Q4Pp:
         strState = "Question 4 Prepare Play";
         ts = TS_Q4Pt;
+        if(iq.Q4P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q4P;
@@ -341,6 +347,7 @@ void TSR::process()
     case TS_Q5Pp:
         strState = "Question 5 Prepare Play";
         ts = TS_Q5Pt;
+        if(iq.Q5P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q5P;
@@ -391,6 +398,7 @@ void TSR::process()
     case TS_Q6Pp:
         strState = "Question 6 Prepare Play";
         ts = TS_Q6Pt;
+        if(iq.Q6P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q6P;
