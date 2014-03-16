@@ -12,3 +12,9 @@ DialogAudioSettings::~DialogAudioSettings()
 {
     delete ui;
 }
+
+/*
+ QStringList codecs = capture->supportedAudioCodecs();
+     for(int i = 0; i < codecs.count(); i++)
+         codecsBox->addItem(codecs.at(i));
+*/
