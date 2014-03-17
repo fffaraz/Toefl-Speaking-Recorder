@@ -16,6 +16,7 @@ public:
     void start(InputQ iq);
     void stop();
     void skip();
+    void reset();
     bool isStarted();
     bool isRecording();
     QString  getState();

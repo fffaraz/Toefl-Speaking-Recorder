@@ -9,7 +9,10 @@ TSR::TSR(QObject *parent) :
     elapsedTime = 0;
     totalTime = 0;
 
-    saveLoc = QDir::currentPath();
+    saveLoc  = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation); //QDir::currentPath();
+    saveLoc += "/";
+    //qDebug() << "Default saveLoc" << saveLoc;
+
     audioRecorder = new QAudioRecorder;
 
     QAudioEncoderSettings audioSettings;
@@ -40,7 +43,7 @@ void TSR::syncedPlay(QString file)
 
 void TSR::setSaveLoc(QString loc)
 {
-    saveLoc = loc;
+    saveLoc = loc + "/";
 }
 
 void TSR::start(InputQ iq)
@@ -61,6 +64,11 @@ void TSR::skip()
 {
     //FIXME
     ts = (TIMER_STATE)( (int)ts + 1 );
+}
+
+void TSR::reset()
+{
+    time.start();
 }
 
 bool TSR::isStarted()
@@ -121,7 +129,7 @@ void TSR::process()
         break;
 
     case TS_Q1Pp:
-        strState = "Question 1 Prepare Play";
+        strState = "Question 1 Preparation Play";
         ts = TS_Q1Pt;
         if(iq.Q1P == 0) break;
         //syncedPlay(":/sounds/q1.wav");
@@ -132,7 +140,7 @@ void TSR::process()
         break;
 
     case TS_Q1Pt:
-        strState = "Question 1 Prepare Time";
+        strState = "Question 1 Preparation Time";
         elapsedTime = time.elapsed() / 1000;
         if(elapsedTime >= totalTime) ts = TS_Q1Rp;
         break;
@@ -145,7 +153,7 @@ void TSR::process()
         totalTime = iq.Q1R;
         time.start();
         //START RECORDING
-        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q1"));
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + iq.name + "-Q1"));
         audioRecorder->record();
         break;
 
@@ -166,7 +174,7 @@ void TSR::process()
         break;
 
     case TS_Q2Pp:
-        strState = "Question 2 Prepare Play";
+        strState = "Question 2 Preparation Play";
         ts = TS_Q2Pt;
         if(iq.Q2P == 0) break;
         //syncedPlay(":/sounds/q2.wav");
@@ -177,7 +185,7 @@ void TSR::process()
         break;
 
     case TS_Q2Pt:
-        strState = "Question 2 Prepare Time";
+        strState = "Question 2 Preparation Time";
         elapsedTime = time.elapsed() / 1000;
         if(elapsedTime >= totalTime) ts = TS_Q2Rp;
         break;
@@ -190,7 +198,7 @@ void TSR::process()
         totalTime = iq.Q2R;
         time.start();
         //START RECORDING
-        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q2"));
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + iq.name + "-Q2"));
         audioRecorder->record();
         break;
 
@@ -233,7 +241,7 @@ void TSR::process()
         break;
 
     case TS_Q3Pp:
-        strState = "Question 3 Prepare Play";
+        strState = "Question 3 Preparation Play";
         ts = TS_Q3Pt;
         if(iq.Q3P == 0) break;
         syncedPlay(":/sounds/prep.wav");
@@ -243,7 +251,7 @@ void TSR::process()
         break;
 
     case TS_Q3Pt:
-        strState = "Question 3 Prepare Time";
+        strState = "Question 3 Preparation Time";
         elapsedTime = time.elapsed() / 1000;
         if(elapsedTime >= totalTime) ts = TS_Q3Rp;
         break;
@@ -256,7 +264,7 @@ void TSR::process()
         totalTime = iq.Q3R;
         time.start();
         //START RECORDING
-        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q3"));
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + iq.name + "-Q3"));
         audioRecorder->record();
         break;
 
@@ -299,7 +307,7 @@ void TSR::process()
         break;
 
     case TS_Q4Pp:
-        strState = "Question 4 Prepare Play";
+        strState = "Question 4 Preparation Play";
         ts = TS_Q4Pt;
         if(iq.Q4P == 0) break;
         syncedPlay(":/sounds/prep.wav");
@@ -309,7 +317,7 @@ void TSR::process()
         break;
 
     case TS_Q4Pt:
-        strState = "Question 4 Prepare Time";
+        strState = "Question 4 Preparation Time";
         elapsedTime = time.elapsed() / 1000;
         if(elapsedTime >= totalTime) ts = TS_Q4Rp;
         break;
@@ -322,7 +330,7 @@ void TSR::process()
         totalTime = iq.Q4R;
         time.start();
         //START RECORDING
-        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q4"));
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + iq.name + "-Q4"));
         audioRecorder->record();
         break;
 
@@ -350,7 +358,7 @@ void TSR::process()
         break;
 
     case TS_Q5Pp:
-        strState = "Question 5 Prepare Play";
+        strState = "Question 5 Preparation Play";
         ts = TS_Q5Pt;
         if(iq.Q5P == 0) break;
         syncedPlay(":/sounds/prep.wav");
@@ -360,7 +368,7 @@ void TSR::process()
         break;
 
     case TS_Q5Pt:
-        strState = "Question 5 Prepare Time";
+        strState = "Question 5 Preparation Time";
         elapsedTime = time.elapsed() / 1000;
         if(elapsedTime >= totalTime) ts = TS_Q5Rp;
         break;
@@ -373,7 +381,7 @@ void TSR::process()
         totalTime = iq.Q5R;
         time.start();
         //START RECORDING
-        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q5"));
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + iq.name + "-Q5"));
         audioRecorder->record();
         break;
 
@@ -401,7 +409,7 @@ void TSR::process()
         break;
 
     case TS_Q6Pp:
-        strState = "Question 6 Prepare Play";
+        strState = "Question 6 Preparation Play";
         ts = TS_Q6Pt;
         if(iq.Q6P == 0) break;
         syncedPlay(":/sounds/prep.wav");
@@ -411,7 +419,7 @@ void TSR::process()
         break;
 
     case TS_Q6Pt:
-        strState = "Question 6 Prepare Time";
+        strState = "Question 6 Preparation Time";
         elapsedTime = time.elapsed() / 1000;
         if(elapsedTime >= totalTime) ts = TS_Q6Rp;
         break;
@@ -424,7 +432,7 @@ void TSR::process()
         totalTime = iq.Q6R;
         time.start();
         //START RECORDING
-        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + "/Q6"));
+        audioRecorder->setOutputLocation(QUrl::fromLocalFile(saveLoc + iq.name + "-Q6"));
         audioRecorder->record();
         break;
 

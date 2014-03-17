@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QNetworkAccessManager>
 
 #include "dialogabout.h"
@@ -27,9 +29,13 @@ private slots:
     void on_actionVersion_triggered();
     void on_actionSet_Location_triggered();
     void on_actionAudio_Settings_triggered();
+    void on_actionAll_triggered();
+    void on_actionNone_triggered();
 
     void on_btnStart_clicked();
     void on_btnSkip_clicked();
+    void on_btnReset_clicked();
+
     void timer_timeout();
     void timer2_timeout();
 

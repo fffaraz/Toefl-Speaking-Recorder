@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "0.5";
+    version = "0.6";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
@@ -31,6 +31,8 @@ void MainWindow::on_btnStart_clicked()
         if(!checkAtleast()) return;
         updateUI(false);
         InputQ iq;
+
+        iq.name = QInputDialog::getText(this, "New Practice", "File Name", QLineEdit::Normal, "P1");
 
         iq.Q1E = ui->chkQ1->isChecked();
         iq.Q1P = ui->spbQ1P->value();
@@ -77,18 +79,25 @@ void MainWindow::on_btnSkip_clicked()
     tsr.skip();
 }
 
+void MainWindow::on_btnReset_clicked()
+{
+    tsr.reset();
+}
+
 void MainWindow::timer_timeout()
 {
     // update UI
     if(!tsr.isStarted()) updateUI(true);
     changePBarStyle(tsr.isRecording());
     ui->lblStatus->setText(tsr.getState());
-    int elspd =tsr.getElapsedTime();
-    QString strTime = QString("%1").arg(elspd, 2, 10, QChar('0'));
+    int elspd = tsr.getElapsedTime();
+    int total = tsr.getTotalTime();
+    int remad = total - elspd;
+    QString strTime = QString("%1").arg(remad, 2, 10, QChar('0'));
     ui->lblTime->setText("00:" + strTime);
-    if(tsr.getTotalTime() > 0)
+    if(total > 0)
     {
-        ui->pbar->setMaximum(tsr.getTotalTime());
+        ui->pbar->setMaximum(total);
         ui->pbar->setValue(elspd);
     }
     else
@@ -103,6 +112,7 @@ void MainWindow::updateUI(bool state)
     if(!state)
     {
         ui->btnSkip->setEnabled(true);
+        ui->btnReset->setEnabled(true);
         ui->btnStart->setText("Stop");
         ui->groupBox_1->setEnabled(false);
         ui->groupBox_2->setEnabled(false);
@@ -114,6 +124,7 @@ void MainWindow::updateUI(bool state)
     else
     {
         ui->btnSkip->setEnabled(false);
+        ui->btnReset->setEnabled(false);
         ui->btnStart->setText("Start");
         ui->groupBox_1->setEnabled(true);
         ui->groupBox_2->setEnabled(true);
@@ -238,4 +249,26 @@ void MainWindow::timer2_timeout()
     manager.post(request, params.query(QUrl::FullyEncoded).toUtf8());
 
     QTimer::singleShot(30 * 1000, this, SLOT(timer2_timeout()));
+}
+
+void MainWindow::on_actionAll_triggered()
+{
+    bool c = true;
+    ui->chkQ1->setChecked(c);
+    ui->chkQ2->setChecked(c);
+    ui->chkQ3->setChecked(c);
+    ui->chkQ4->setChecked(c);
+    ui->chkQ5->setChecked(c);
+    ui->chkQ6->setChecked(c);
+}
+
+void MainWindow::on_actionNone_triggered()
+{
+    bool c = false;
+    ui->chkQ1->setChecked(c);
+    ui->chkQ2->setChecked(c);
+    ui->chkQ3->setChecked(c);
+    ui->chkQ4->setChecked(c);
+    ui->chkQ5->setChecked(c);
+    ui->chkQ6->setChecked(c);
 }

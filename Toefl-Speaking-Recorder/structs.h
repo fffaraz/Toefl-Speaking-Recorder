@@ -5,6 +5,8 @@
 
 struct InputQ
 {
+    QString name;
+
     bool Q1E; //Enabled
     int  Q1P; //Prepare
     int  Q1R; //Response

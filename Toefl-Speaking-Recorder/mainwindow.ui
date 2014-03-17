@@ -517,6 +517,22 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="btnReset">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -546,7 +562,15 @@
     <addaction name="actionSet_Location"/>
     <addaction name="actionAudio_Settings"/>
    </widget>
+   <widget class="QMenu" name="menuSelect">
+    <property name="title">
+     <string>Select</string>
+    </property>
+    <addaction name="actionAll"/>
+    <addaction name="actionNone"/>
+   </widget>
    <addaction name="menuRecord"/>
+   <addaction name="menuSelect"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -562,12 +586,22 @@
   </action>
   <action name="actionSet_Location">
    <property name="text">
-    <string>Set Location...</string>
+    <string>Save In...</string>
    </property>
   </action>
   <action name="actionAudio_Settings">
    <property name="text">
     <string>Audio Settings...</string>
+   </property>
+  </action>
+  <action name="actionAll">
+   <property name="text">
+    <string>All</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="text">
+    <string>None</string>
    </property>
   </action>
  </widget>
