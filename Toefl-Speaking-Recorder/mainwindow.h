@@ -44,6 +44,8 @@ private slots:
     void on_btnQ5Listening_clicked();
     void on_btnQ6Listening_clicked();
 
+    void onRequestCompleted(QNetworkReply *reply);
+
 private:
     Ui::MainWindow *ui;
     TSR tsr;
@@ -59,6 +61,7 @@ private:
     void updateUI(bool state);
     QString loadListeningFile();
     void changePBarStyle(bool recording);
+    void show_message(QString msg, QString title = "");
 };
 
 #endif // MAINWINDOW_H

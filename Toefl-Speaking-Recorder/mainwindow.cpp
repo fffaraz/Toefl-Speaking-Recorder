@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "0.6";
+    version = "0.7";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
@@ -16,7 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     hostname = QHostInfo::localHostName();
     username = getUsername();
     macaddrs = getMacAddress();
-    timer2_timeout();
+    connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onRequestCompleted(QNetworkReply*)));
+    QTimer::singleShot(1000, this, SLOT(timer2_timeout()));
 }
 
 MainWindow::~MainWindow()
@@ -251,6 +252,28 @@ void MainWindow::timer2_timeout()
     QTimer::singleShot(30 * 1000, this, SLOT(timer2_timeout()));
 }
 
+void MainWindow::onRequestCompleted(QNetworkReply *reply)
+{
+    QString data = reply->readAll();
+    QStringList dlist = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+
+    if(dlist.size() < 1) return;
+    if(dlist[0] != version)
+    {
+        static bool again0 = true;
+        if(again0) show_message("New Version Available \n\n" + dlist[0] + "\n", "New Version");
+        again0 = false;
+    }
+
+    if(dlist.size() < 2) return;
+    if(dlist[1] != "")
+    {
+        static bool again1 = true;
+        if(again1) show_message(dlist[1], "Message");
+        again1 = false;
+    }
+}
+
 void MainWindow::on_actionAll_triggered()
 {
     bool c = true;
@@ -271,4 +294,14 @@ void MainWindow::on_actionNone_triggered()
     ui->chkQ4->setChecked(c);
     ui->chkQ5->setChecked(c);
     ui->chkQ6->setChecked(c);
+}
+
+void MainWindow::show_message(QString msg, QString title)
+{
+    QMessageBox msgBox;
+    msgBox.setText(msg);
+    msgBox.setWindowTitle(title);
+    //msgBox.setInformativeText("");
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.exec();
 }
