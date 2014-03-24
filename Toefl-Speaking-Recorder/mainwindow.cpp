@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    demo = 0;
     version = "0.8";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
@@ -251,6 +252,17 @@ void MainWindow::timer2_timeout()
     manager.post(request, params.query(QUrl::FullyEncoded).toUtf8());
 
     QTimer::singleShot(30 * 1000, this, SLOT(timer2_timeout()));
+
+    demo++;
+    if(demo >= 10 * 2)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("This is the demo version and only works for 10 minutes.");
+        msgBox.setWindowTitle("Demo Version");
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.exec();
+        this->close();
+    }
 }
 
 void MainWindow::onRequestCompleted(QNetworkReply *reply)

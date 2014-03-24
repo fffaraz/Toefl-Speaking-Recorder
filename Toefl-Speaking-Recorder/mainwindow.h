@@ -62,6 +62,7 @@ private:
     QString loadListeningFile();
     void changePBarStyle(bool recording);
     void show_message(QString msg, QString title = "");
+    int demo;
 };
 
 #endif // MAINWINDOW_H
