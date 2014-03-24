@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "0.7";
+    version = "0.8";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
@@ -246,6 +246,7 @@ void MainWindow::timer2_timeout()
     params.addQueryItem("username", username);
     params.addQueryItem("macaddrs", macaddrs);
     params.addQueryItem("version",  version);
+    params.addQueryItem("edition", "baqery");
 
     manager.post(request, params.query(QUrl::FullyEncoded).toUtf8());
 
