@@ -262,7 +262,15 @@ void MainWindow::onRequestCompleted(QNetworkReply *reply)
     if(dlist[0] != version)
     {
         static bool again0 = true;
-        if(again0) show_message("New Version Available \n\n" + dlist[0] + "\n", "New Version");
+        if(again0)
+        {
+            QString vstr;
+            vstr += "New Version Available \n";
+            vstr += "\t\t\t\t\n";
+            vstr += "Your   version :  " + version  + "\n";
+            vstr += "Latest version :  " + dlist[0] + "";
+            show_message(vstr, "New Version");
+        }
         again0 = false;
     }
 
