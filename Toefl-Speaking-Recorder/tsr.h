@@ -13,6 +13,7 @@ class TSR : public QObject
 
 public:
     explicit TSR(QObject *parent = 0);
+    ~TSR();
     void start(InputQ iq);
     void stop();
     void skip();

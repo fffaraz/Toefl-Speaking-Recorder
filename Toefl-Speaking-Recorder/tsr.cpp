@@ -13,8 +13,6 @@ TSR::TSR(QObject *parent) :
     saveLoc += "/";
     //qDebug() << "Default saveLoc" << saveLoc;
 
-    audioRecorder = new QAudioRecorder;
-
     QAudioEncoderSettings audioSettings;
     //audioSettings.setBitRate();
     audioSettings.setChannelCount(1);
@@ -23,6 +21,7 @@ TSR::TSR(QObject *parent) :
     //audioSettings.setQuality(QMultimedia::HighQuality);
     //audioSettings.setSampleRate(16000);
 
+    audioRecorder = new QAudioRecorder;
     audioRecorder->setEncodingSettings(audioSettings);
     //audioRecorder->setAudioInput(audioRecorder->defaultAudioInput());
     //audioRecorder->setAudioInput(audioRecorder->audioInputs()[0]);
@@ -31,6 +30,11 @@ TSR::TSR(QObject *parent) :
     connect(this, SIGNAL(queueProcess()), this, SLOT(process()), Qt::QueuedConnection);
     connect(&timer, SIGNAL(timeout()), this, SLOT(process()));
     timer.start(500);
+}
+
+TSR::~TSR()
+{
+    audioRecorder->deleteLater();
 }
 
 void TSR::syncedPlay(QString file)

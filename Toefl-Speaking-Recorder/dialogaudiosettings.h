@@ -2,6 +2,7 @@
 #define DIALOGAUDIOSETTINGS_H
 
 #include <QDialog>
+#include <QtMultimedia>
 
 namespace Ui {
 class DialogAudioSettings;
