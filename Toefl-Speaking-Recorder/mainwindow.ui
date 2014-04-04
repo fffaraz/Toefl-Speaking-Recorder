@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>398</width>
-    <height>585</height>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -432,6 +432,12 @@
       </item>
       <item>
        <widget class="QLabel" name="lblStatus">
+        <property name="font">
+         <font>
+          <family>Tahoma</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>STATUS</string>
         </property>
@@ -442,6 +448,12 @@
       </item>
       <item>
        <widget class="QLabel" name="lblTime">
+        <property name="font">
+         <font>
+          <family>Tahoma</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>00:00</string>
         </property>
@@ -586,7 +598,7 @@
   </action>
   <action name="actionSet_Location">
    <property name="text">
-    <string>Save In...</string>
+    <string>Save in...</string>
    </property>
   </action>
   <action name="actionAudio_Settings">
