@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     demo = 0;
-    version = "0.8";
+    version = "0.9";
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
@@ -276,6 +276,7 @@ void MainWindow::onRequestCompleted(QNetworkReply *reply)
         static bool again0 = true;
         if(again0)
         {
+            again0 = false;
             QString vstr;
             vstr += "New Version Available \n";
             vstr += "\t\t\t\t\n";
@@ -283,15 +284,17 @@ void MainWindow::onRequestCompleted(QNetworkReply *reply)
             vstr += "Latest version :  " + dlist[0] + "";
             show_message(vstr, "New Version");
         }
-        again0 = false;
     }
 
     if(dlist.size() < 2) return;
     if(dlist[1] != "")
     {
         static bool again1 = true;
-        if(again1) show_message(dlist[1], "Message");
-        again1 = false;
+        if(again1)
+        {
+            again1 = false;
+            show_message(dlist[1], "Message");
+        }
     }
 }
 
