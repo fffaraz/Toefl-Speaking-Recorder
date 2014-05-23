@@ -29,7 +29,7 @@ TSR::TSR(QObject *parent) :
 
     connect(this, SIGNAL(queueProcess()), this, SLOT(process()), Qt::QueuedConnection);
     connect(&timer, SIGNAL(timeout()), this, SLOT(process()));
-    timer.start(500);
+    timer.start(250);
 }
 
 TSR::~TSR()
@@ -54,6 +54,7 @@ void TSR::start(InputQ iq)
 {
     memset(finishedQ, 0, sizeof(finishedQ));
     elapsedTime = 0; totalTime = 0;
+    time.start();
     this->iq = iq;
     findNextQ();
     queueProcess();
@@ -66,7 +67,7 @@ void TSR::stop()
 
 void TSR::skip()
 {
-    //FIXME
+    if(ts == TS_Q1Rf || ts == TS_Q2Rf || ts == TS_Q3Rf || ts == TS_Q4Rf || ts == TS_Q5Rf || ts == TS_Q6Rf) return;
     ts = (TIMER_STATE)( (int)ts + 1 );
 }
 
