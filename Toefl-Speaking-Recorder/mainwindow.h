@@ -50,6 +50,7 @@ private:
     Ui::MainWindow *ui;
     TSR tsr;
     QTimer timer;
+    bool isWaiting;
     QString version;
     quint32 randseed;
     QString hostname;
@@ -58,7 +59,7 @@ private:
     QString listeningFiles[4];
     QNetworkAccessManager manager;
     bool checkAtleast();
-    void updateUI(bool state);
+    void updateUI(bool isStarted);
     QString loadListeningFile();
     void changePBarStyle(bool recording);
     void show_message(QString msg, QString title = "");

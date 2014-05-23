@@ -7,16 +7,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     demo = 0;
-    version = "0.9";
+    version = "0.10";
+    isWaiting = false;
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
     ui->btnStart->setFocus();
-    connect(&timer,SIGNAL(timeout()), this, SLOT(timer_timeout()));
     qsrand(QTime::currentTime().msec());
     randseed = qrand() * qrand() + qrand();
     hostname = QHostInfo::localHostName();
     username = getUsername();
     macaddrs = getMacAddress();
+    connect(&timer,SIGNAL(timeout()), this, SLOT(timer_timeout()));
+    //timer.start(250);
     connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onRequestCompleted(QNetworkReply*)));
     QTimer::singleShot(1000, this, SLOT(timer2_timeout()));
 }
@@ -31,10 +33,18 @@ void MainWindow::on_btnStart_clicked()
     if(!tsr.isStarted())
     {
         if(!checkAtleast()) return;
-        updateUI(false);
         InputQ iq;
 
+        updateUI(true);
+        isWaiting = true;
         iq.name = QInputDialog::getText(this, "New Practice", "File Name", QLineEdit::Normal, "P1");
+        isWaiting = false;
+
+        if(iq.name.length() < 1)
+        {
+            updateUI(false);
+            return;
+        }
 
         iq.Q1E = ui->chkQ1->isChecked();
         iq.Q1P = ui->spbQ1P->value();
@@ -67,12 +77,12 @@ void MainWindow::on_btnStart_clicked()
         iq.Q6Listening = listeningFiles[3];
 
         tsr.start(iq);
-        if(!timer.isActive()) timer.start(500);
+        if(!timer.isActive()) timer.start(250);
     }
     else
     {
         tsr.stop();
-        updateUI(true);
+        updateUI(false);
     }
 }
 
@@ -89,9 +99,10 @@ void MainWindow::on_btnReset_clicked()
 void MainWindow::timer_timeout()
 {
     // update UI
-    if(!tsr.isStarted()) updateUI(true);
+    updateUI(tsr.isStarted());
     changePBarStyle(tsr.isRecording());
     ui->lblStatus->setText(tsr.getState());
+
     int elspd = tsr.getElapsedTime();
     int total = tsr.getTotalTime();
     int remad = total - elspd;
@@ -109,9 +120,9 @@ void MainWindow::timer_timeout()
     }
 }
 
-void MainWindow::updateUI(bool state)
+void MainWindow::updateUI(bool isStarted)
 {
-    if(!state)
+    if(isStarted || isWaiting)
     {
         ui->btnSkip->setEnabled(true);
         ui->btnReset->setEnabled(true);
@@ -247,14 +258,14 @@ void MainWindow::timer2_timeout()
     params.addQueryItem("username", username);
     params.addQueryItem("macaddrs", macaddrs);
     params.addQueryItem("version",  version);
-    params.addQueryItem("edition", "baqery");
+    params.addQueryItem("edition",  "demo");
 
     manager.post(request, params.query(QUrl::FullyEncoded).toUtf8());
 
-    QTimer::singleShot(30 * 1000, this, SLOT(timer2_timeout()));
+    QTimer::singleShot(60 * 1000, this, SLOT(timer2_timeout()));
 
     demo++;
-    if(demo >= 10 * 2)
+    if(demo >= 10)
     {
         QMessageBox msgBox;
         msgBox.setText("This is the demo version and only works for 10 minutes.");

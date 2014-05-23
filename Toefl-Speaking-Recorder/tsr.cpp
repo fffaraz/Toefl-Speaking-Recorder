@@ -29,7 +29,7 @@ TSR::TSR(QObject *parent) :
 
     connect(this, SIGNAL(queueProcess()), this, SLOT(process()), Qt::QueuedConnection);
     connect(&timer, SIGNAL(timeout()), this, SLOT(process()));
-    timer.start(500);
+    timer.start(250);
 }
 
 TSR::~TSR()
@@ -54,6 +54,7 @@ void TSR::start(InputQ iq)
 {
     memset(finishedQ, 0, sizeof(finishedQ));
     elapsedTime = 0; totalTime = 0;
+    time.start();
     this->iq = iq;
     findNextQ();
     queueProcess();
@@ -66,7 +67,7 @@ void TSR::stop()
 
 void TSR::skip()
 {
-    //FIXME
+    if(ts == TS_Q1Rf || ts == TS_Q2Rf || ts == TS_Q3Rf || ts == TS_Q4Rf || ts == TS_Q5Rf || ts == TS_Q6Rf) return;
     ts = (TIMER_STATE)( (int)ts + 1 );
 }
 
@@ -133,9 +134,13 @@ void TSR::process()
         break;
 
     case TS_Q1Pp:
-        strState = "Question 1 Preparation Play";
+        if(iq.Q1P == 0)
+        {
+            ts = TS_Q1Rp;
+            break;
+        }
+        strState = "Question 1 Preparation";
         ts = TS_Q1Pt;
-        if(iq.Q1P == 0) break;
         //syncedPlay(":/sounds/q1.wav");
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -150,7 +155,7 @@ void TSR::process()
         break;
 
     case TS_Q1Rp:
-        strState = "Question 1 Response Play";
+        strState = "Question 1 Response";
         ts = TS_Q1Rt;
         syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -178,9 +183,13 @@ void TSR::process()
         break;
 
     case TS_Q2Pp:
-        strState = "Question 2 Preparation Play";
+        if(iq.Q2P == 0)
+        {
+            ts = TS_Q2Rp;
+            break;
+        }
+        strState = "Question 2 Preparation";
         ts = TS_Q2Pt;
-        if(iq.Q2P == 0) break;
         //syncedPlay(":/sounds/q2.wav");
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -195,7 +204,7 @@ void TSR::process()
         break;
 
     case TS_Q2Rp:
-        strState = "Question 2 Response Play";
+        strState = "Question 2 Response";
         ts = TS_Q2Rt;
         syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -223,9 +232,13 @@ void TSR::process()
         break;
 
     case TS_Q3Readp:
+        if(iq.Q3Reading == 0)
+        {
+            ts = TS_Q3Listen;
+            break;
+        }
         strState = "Question 3 Reading";
         ts = TS_Q3Readt;
-        if(iq.Q3Reading == 0) break;
         //syncedPlay(":/sounds/q3.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q3Reading;
@@ -245,9 +258,13 @@ void TSR::process()
         break;
 
     case TS_Q3Pp:
-        strState = "Question 3 Preparation Play";
+        if(iq.Q3P == 0)
+        {
+            ts = TS_Q3Rp;
+            break;
+        }
+        strState = "Question 3 Preparation";
         ts = TS_Q3Pt;
-        if(iq.Q3P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q3P;
@@ -261,7 +278,7 @@ void TSR::process()
         break;
 
     case TS_Q3Rp:
-        strState = "Question 3 Response Play";
+        strState = "Question 3 Response";
         ts = TS_Q3Rt;
         syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -289,9 +306,13 @@ void TSR::process()
         break;
 
     case TS_Q4Readp:
+        if(iq.Q4Reading == 0)
+        {
+            ts = TS_Q4Listen;
+            break;
+        }
         strState = "Question 4 Reading";
         ts = TS_Q4Readt;
-        if(iq.Q4Reading == 0) break;
         //syncedPlay(":/sounds/q4.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q4Reading;
@@ -311,9 +332,13 @@ void TSR::process()
         break;
 
     case TS_Q4Pp:
-        strState = "Question 4 Preparation Play";
+        if(iq.Q4P == 0)
+        {
+            ts = TS_Q4Rp;
+            break;
+        }
+        strState = "Question 4 Preparation";
         ts = TS_Q4Pt;
-        if(iq.Q4P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q4P;
@@ -327,7 +352,7 @@ void TSR::process()
         break;
 
     case TS_Q4Rp:
-        strState = "Question 4 Response Play";
+        strState = "Question 4 Response";
         ts = TS_Q4Rt;
         syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -362,9 +387,13 @@ void TSR::process()
         break;
 
     case TS_Q5Pp:
-        strState = "Question 5 Preparation Play";
+        if(iq.Q5P == 0)
+        {
+            ts = TS_Q5Rp;
+            break;
+        }
+        strState = "Question 5 Preparation";
         ts = TS_Q5Pt;
-        if(iq.Q5P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q5P;
@@ -378,7 +407,7 @@ void TSR::process()
         break;
 
     case TS_Q5Rp:
-        strState = "Question 5 Response Play";
+        strState = "Question 5 Response";
         ts = TS_Q5Rt;
         syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -413,9 +442,13 @@ void TSR::process()
         break;
 
     case TS_Q6Pp:
-        strState = "Question 6 Preparation Play";
+        if(iq.Q6P == 0)
+        {
+            ts = TS_Q6Rp;
+            break;
+        }
+        strState = "Question 6 Preparation";
         ts = TS_Q6Pt;
-        if(iq.Q6P == 0) break;
         syncedPlay(":/sounds/prep.wav");
         syncedPlay(":/sounds/beep.wav");
         totalTime = iq.Q6P;
@@ -429,7 +462,7 @@ void TSR::process()
         break;
 
     case TS_Q6Rp:
-        strState = "Question 6 Response Play";
+        strState = "Question 6 Response";
         ts = TS_Q6Rt;
         syncedPlay(":/sounds/speak.wav");
         syncedPlay(":/sounds/beep.wav");
@@ -461,7 +494,7 @@ void TSR::process()
         break;
 
     default:
-        qDebug() << "TSR::process -> default ! " << ts;
+        qDebug() << "TSR::process -> default !" << ts;
         break;
     }
     inProcess = false;
