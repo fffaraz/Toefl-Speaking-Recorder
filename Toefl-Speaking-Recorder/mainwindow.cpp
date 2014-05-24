@@ -224,21 +224,37 @@ QString MainWindow::loadListeningFile()
 void MainWindow::on_btnQ3Listening_clicked()
 {
     listeningFiles[0] = loadListeningFile();
+    if(listeningFiles[0].length() > 0)
+        ui->btnQ3Listening->setText("Loaded");
+    else
+        ui->btnQ3Listening->setText("Load File");
 }
 
 void MainWindow::on_btnQ4Listening_clicked()
 {
     listeningFiles[1] = loadListeningFile();
+    if(listeningFiles[1].length() > 0)
+        ui->btnQ4Listening->setText("Loaded");
+    else
+        ui->btnQ4Listening->setText("Load File");
 }
 
 void MainWindow::on_btnQ5Listening_clicked()
 {
     listeningFiles[2] = loadListeningFile();
+    if(listeningFiles[2].length() > 0)
+        ui->btnQ5Listening->setText("Loaded");
+    else
+        ui->btnQ5Listening->setText("Load File");
 }
 
 void MainWindow::on_btnQ6Listening_clicked()
 {
     listeningFiles[3] = loadListeningFile();
+    if(listeningFiles[3].length() > 0)
+        ui->btnQ6Listening->setText("Loaded");
+    else
+        ui->btnQ6Listening->setText("Load File");
 }
 
 void MainWindow::changePBarStyle(bool recording)

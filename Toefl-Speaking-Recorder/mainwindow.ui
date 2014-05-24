@@ -192,7 +192,7 @@
            <item row="4" column="1">
             <widget class="QPushButton" name="btnQ3Listening">
              <property name="text">
-              <string>Load file</string>
+              <string>Load File</string>
              </property>
             </widget>
            </item>
@@ -274,7 +274,7 @@
            <item row="4" column="1">
             <widget class="QPushButton" name="btnQ4Listening">
              <property name="text">
-              <string>Load file</string>
+              <string>Load File</string>
              </property>
             </widget>
            </item>
@@ -339,7 +339,7 @@
            <item row="3" column="1">
             <widget class="QPushButton" name="btnQ5Listening">
              <property name="text">
-              <string>Load file</string>
+              <string>Load File</string>
              </property>
             </widget>
            </item>
@@ -404,7 +404,7 @@
            <item row="3" column="1">
             <widget class="QPushButton" name="btnQ6Listening">
              <property name="text">
-              <string>Load file</string>
+              <string>Load File</string>
              </property>
             </widget>
            </item>
