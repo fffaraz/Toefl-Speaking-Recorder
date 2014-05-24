@@ -24,7 +24,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    if(tsr.isStarted()) tsr.stop();
+    QCoreApplication::processEvents();
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    if(tsr.isStarted()) tsr.stop();
+    QCoreApplication::processEvents();
 }
 
 void MainWindow::on_btnStart_clicked()

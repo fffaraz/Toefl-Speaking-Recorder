@@ -46,6 +46,9 @@ private slots:
 
     void onRequestCompleted(QNetworkReply *reply);
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::MainWindow *ui;
     TSR tsr;
