@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtCore>
 #include <QtMultimedia>
+#include <QMediaPlayer>
 
 #include "structs.h"
 
@@ -39,7 +40,8 @@ private:
     QString saveLoc;
 
 private slots:
-    void syncedPlay(QString file);
+    void syncedPlay1(QString file);
+    void syncedPlay2(QString file);
     void findNextQ();
     void process();
 

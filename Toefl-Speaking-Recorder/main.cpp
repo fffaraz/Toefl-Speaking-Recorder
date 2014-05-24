@@ -9,6 +9,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setLibraryPaths(lp);
 
     QApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(true);
+
     MainWindow w;
     w.show();
 

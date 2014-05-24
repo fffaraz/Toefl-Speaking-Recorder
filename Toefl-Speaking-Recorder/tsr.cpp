@@ -37,11 +37,35 @@ TSR::~TSR()
     audioRecorder->deleteLater();
 }
 
-void TSR::syncedPlay(QString file)
+void TSR::syncedPlay1(QString file)
 {
     QSound s(file);
     s.play();
-    while(!s.isFinished()) QCoreApplication::processEvents();
+    while(!s.isFinished())
+    {
+        QCoreApplication::processEvents();
+        QThread::msleep(20);
+    }
+    elapsedTime = 0; totalTime = 0;
+}
+
+void TSR::syncedPlay2(QString file)
+{
+    QMediaPlayer player;
+    player.setMedia(QUrl::fromLocalFile(file));
+    player.play();
+
+    totalTime = player.duration() / 1000;
+    time.start();
+
+    while(player.state() == QMediaPlayer::PlayingState)
+    {
+        totalTime = player.duration() / 1000;
+        elapsedTime = time.elapsed() / 1000;
+        QCoreApplication::processEvents();
+        if(ts == TS_STOPPED) break;
+        QThread::msleep(20);
+    }
     elapsedTime = 0; totalTime = 0;
 }
 
@@ -141,9 +165,9 @@ void TSR::process()
         }
         strState = "Question 1 Preparation";
         ts = TS_Q1Pt;
-        //syncedPlay(":/sounds/q1.wav");
-        syncedPlay(":/sounds/prep.wav");
-        syncedPlay(":/sounds/beep.wav");
+        //syncedPlay1(":/sounds/q1.wav");
+        syncedPlay1(":/sounds/prep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q1P;
         time.start();
         break;
@@ -157,8 +181,8 @@ void TSR::process()
     case TS_Q1Rp:
         strState = "Question 1 Response";
         ts = TS_Q1Rt;
-        syncedPlay(":/sounds/speak.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/speak.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q1R;
         time.start();
         //START RECORDING
@@ -177,7 +201,7 @@ void TSR::process()
         strState = "Question 1 Response Finished";
         finishedQ[0] = true;
         findNextQ();
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         //STOP RECORDING
         audioRecorder->stop();
         break;
@@ -190,9 +214,9 @@ void TSR::process()
         }
         strState = "Question 2 Preparation";
         ts = TS_Q2Pt;
-        //syncedPlay(":/sounds/q2.wav");
-        syncedPlay(":/sounds/prep.wav");
-        syncedPlay(":/sounds/beep.wav");
+        //syncedPlay1(":/sounds/q2.wav");
+        syncedPlay1(":/sounds/prep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q2P;
         time.start();
         break;
@@ -206,8 +230,8 @@ void TSR::process()
     case TS_Q2Rp:
         strState = "Question 2 Response";
         ts = TS_Q2Rt;
-        syncedPlay(":/sounds/speak.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/speak.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q2R;
         time.start();
         //START RECORDING
@@ -226,7 +250,7 @@ void TSR::process()
         strState = "Question 2 Response Finished";
         finishedQ[1] = true;
         findNextQ();
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         //STOP RECORDING
         audioRecorder->stop();
         break;
@@ -239,8 +263,8 @@ void TSR::process()
         }
         strState = "Question 3 Reading";
         ts = TS_Q3Readt;
-        //syncedPlay(":/sounds/q3.wav");
-        syncedPlay(":/sounds/beep.wav");
+        //syncedPlay1(":/sounds/q3.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q3Reading;
         time.start();
         break;
@@ -253,7 +277,8 @@ void TSR::process()
 
     case TS_Q3Listen:
         strState = "Question 3 Listening";
-        if(iq.Q3Listening != "") syncedPlay(iq.Q3Listening);
+        if(iq.Q3Listening != "") syncedPlay2(iq.Q3Listening);
+        if(ts == TS_STOPPED) break;
         ts = TS_Q3Pp;
         break;
 
@@ -265,8 +290,8 @@ void TSR::process()
         }
         strState = "Question 3 Preparation";
         ts = TS_Q3Pt;
-        syncedPlay(":/sounds/prep.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/prep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q3P;
         time.start();
         break;
@@ -280,8 +305,8 @@ void TSR::process()
     case TS_Q3Rp:
         strState = "Question 3 Response";
         ts = TS_Q3Rt;
-        syncedPlay(":/sounds/speak.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/speak.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q3R;
         time.start();
         //START RECORDING
@@ -300,7 +325,7 @@ void TSR::process()
         strState = "Question 3 Response Finished";
         finishedQ[2] = true;
         findNextQ();
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         //STOP RECORDING
         audioRecorder->stop();
         break;
@@ -313,8 +338,8 @@ void TSR::process()
         }
         strState = "Question 4 Reading";
         ts = TS_Q4Readt;
-        //syncedPlay(":/sounds/q4.wav");
-        syncedPlay(":/sounds/beep.wav");
+        //syncedPlay1(":/sounds/q4.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q4Reading;
         time.start();
         break;
@@ -327,7 +352,8 @@ void TSR::process()
 
     case TS_Q4Listen:
         strState = "Question 4 Listening";
-        if(iq.Q4Listening != "") syncedPlay(iq.Q4Listening);
+        if(iq.Q4Listening != "") syncedPlay2(iq.Q4Listening);
+        if(ts == TS_STOPPED) break;
         ts = TS_Q4Pp;
         break;
 
@@ -339,8 +365,8 @@ void TSR::process()
         }
         strState = "Question 4 Preparation";
         ts = TS_Q4Pt;
-        syncedPlay(":/sounds/prep.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/prep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q4P;
         time.start();
         break;
@@ -354,8 +380,8 @@ void TSR::process()
     case TS_Q4Rp:
         strState = "Question 4 Response";
         ts = TS_Q4Rt;
-        syncedPlay(":/sounds/speak.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/speak.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q4R;
         time.start();
         //START RECORDING
@@ -374,15 +400,16 @@ void TSR::process()
         strState = "Question 4 Response Finished";
         finishedQ[3] = true;
         findNextQ();
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         //STOP RECORDING
         audioRecorder->stop();
         break;
 
     case TS_Q5Listen:
         strState = "Question 5 Listening";
-        //syncedPlay(":/sounds/beep.wav");
-        if(iq.Q5Listening != "") syncedPlay(iq.Q5Listening);
+        //syncedPlay1(":/sounds/beep.wav");
+        if(iq.Q5Listening != "") syncedPlay2(iq.Q5Listening);
+        if(ts == TS_STOPPED) break;
         ts = TS_Q5Pp;
         break;
 
@@ -394,8 +421,8 @@ void TSR::process()
         }
         strState = "Question 5 Preparation";
         ts = TS_Q5Pt;
-        syncedPlay(":/sounds/prep.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/prep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q5P;
         time.start();
         break;
@@ -409,8 +436,8 @@ void TSR::process()
     case TS_Q5Rp:
         strState = "Question 5 Response";
         ts = TS_Q5Rt;
-        syncedPlay(":/sounds/speak.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/speak.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q5R;
         time.start();
         //START RECORDING
@@ -429,15 +456,16 @@ void TSR::process()
         strState = "Question 5 Response Finished";
         finishedQ[4] = true;
         findNextQ();
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         //STOP RECORDING
         audioRecorder->stop();
         break;
 
     case TS_Q6Listen:
         strState = "Question 6 Listening";
-        //syncedPlay(":/sounds/beep.wav");
-        if(iq.Q6Listening != "") syncedPlay(iq.Q6Listening);
+        //syncedPlay1(":/sounds/beep.wav");
+        if(iq.Q6Listening != "") syncedPlay2(iq.Q6Listening);
+        if(ts == TS_STOPPED) break;
         ts = TS_Q6Pp;
         break;
 
@@ -449,8 +477,8 @@ void TSR::process()
         }
         strState = "Question 6 Preparation";
         ts = TS_Q6Pt;
-        syncedPlay(":/sounds/prep.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/prep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q6P;
         time.start();
         break;
@@ -464,8 +492,8 @@ void TSR::process()
     case TS_Q6Rp:
         strState = "Question 6 Response";
         ts = TS_Q6Rt;
-        syncedPlay(":/sounds/speak.wav");
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/speak.wav");
+        syncedPlay1(":/sounds/beep.wav");
         totalTime = iq.Q6R;
         time.start();
         //START RECORDING
@@ -484,7 +512,7 @@ void TSR::process()
         strState = "Question 6 Response Finished";
         finishedQ[5] = true;
         findNextQ();
-        syncedPlay(":/sounds/beep.wav");
+        syncedPlay1(":/sounds/beep.wav");
         //STOP RECORDING
         audioRecorder->stop();
         break;

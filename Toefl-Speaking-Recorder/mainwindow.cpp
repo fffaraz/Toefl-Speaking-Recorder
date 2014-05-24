@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "0.10";
+    version = "0.11";
     isWaiting = false;
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
@@ -105,8 +105,13 @@ void MainWindow::timer_timeout()
     int elspd = tsr.getElapsedTime();
     int total = tsr.getTotalTime();
     int remad = total - elspd;
-    QString strTime = QString("%1").arg(remad, 2, 10, QChar('0'));
-    ui->lblTime->setText("00:" + strTime);
+    int rems  = remad % 60;
+    int remm  = remad / 60;
+
+    QString strRems = QString("%1").arg(rems, 2, 10, QChar('0'));
+    QString strRemm = QString("%1").arg(remm, 2, 10, QChar('0'));
+    ui->lblTime->setText(strRemm + ":" + strRems);
+
     if(total > 0)
     {
         ui->pbar->setMaximum(total);
