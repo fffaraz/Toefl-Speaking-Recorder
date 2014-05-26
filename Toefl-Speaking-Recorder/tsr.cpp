@@ -51,6 +51,8 @@ void TSR::syncedPlay1(QString file)
 
 void TSR::syncedPlay2(QString file)
 {
+    TIMER_STATE ts2 = ts;
+
     QMediaPlayer player;
     player.setMedia(QUrl::fromLocalFile(file));
     player.play();
@@ -61,11 +63,13 @@ void TSR::syncedPlay2(QString file)
     while(player.state() == QMediaPlayer::PlayingState)
     {
         totalTime = player.duration() / 1000;
-        elapsedTime = time.elapsed() / 1000;
+        elapsedTime = player.position() / 1000;
         QCoreApplication::processEvents();
         if(ts == TS_STOPPED) break;
+        if(ts != ts2) break;
         QThread::msleep(20);
     }
+
     elapsedTime = 0; totalTime = 0;
 }
 
@@ -98,6 +102,8 @@ void TSR::skip()
 void TSR::reset()
 {
     time.start();
+    if(ts == TS_Q3Listen || ts == TS_Q4Listen || ts == TS_Q5Listen || ts == TS_Q6Listen)
+        ts = (TIMER_STATE)( (int)ts - 1 );
 }
 
 bool TSR::isStarted()
@@ -275,11 +281,14 @@ void TSR::process()
         if(elapsedTime >= totalTime) ts = TS_Q3Listen;
         break;
 
+    case TS_Q3Listen_S:
+        ts = TS_Q3Listen;
+
     case TS_Q3Listen:
         strState = "Question 3 Listening";
         if(iq.Q3Listening != "") syncedPlay2(iq.Q3Listening);
         if(ts == TS_STOPPED) break;
-        ts = TS_Q3Pp;
+        if(ts == TS_Q3Listen) ts = TS_Q3Pp;
         break;
 
     case TS_Q3Pp:
@@ -350,11 +359,14 @@ void TSR::process()
         if(elapsedTime >= totalTime) ts = TS_Q4Listen;
         break;
 
+    case TS_Q4Listen_S:
+        ts = TS_Q4Listen;
+
     case TS_Q4Listen:
         strState = "Question 4 Listening";
         if(iq.Q4Listening != "") syncedPlay2(iq.Q4Listening);
         if(ts == TS_STOPPED) break;
-        ts = TS_Q4Pp;
+        if(ts == TS_Q4Listen) ts = TS_Q4Pp;
         break;
 
     case TS_Q4Pp:
@@ -405,12 +417,15 @@ void TSR::process()
         audioRecorder->stop();
         break;
 
+    case TS_Q5Listen_S:
+        ts = TS_Q5Listen;
+
     case TS_Q5Listen:
         strState = "Question 5 Listening";
         //syncedPlay1(":/sounds/beep.wav");
         if(iq.Q5Listening != "") syncedPlay2(iq.Q5Listening);
         if(ts == TS_STOPPED) break;
-        ts = TS_Q5Pp;
+        if(ts == TS_Q5Listen) ts = TS_Q5Pp;
         break;
 
     case TS_Q5Pp:
@@ -461,12 +476,15 @@ void TSR::process()
         audioRecorder->stop();
         break;
 
+    case TS_Q6Listen_S:
+        ts = TS_Q6Listen;
+
     case TS_Q6Listen:
         strState = "Question 6 Listening";
         //syncedPlay1(":/sounds/beep.wav");
         if(iq.Q6Listening != "") syncedPlay2(iq.Q6Listening);
         if(ts == TS_STOPPED) break;
-        ts = TS_Q6Pp;
+        if(ts == TS_Q6Listen) ts = TS_Q6Pp;
         break;
 
     case TS_Q6Pp:

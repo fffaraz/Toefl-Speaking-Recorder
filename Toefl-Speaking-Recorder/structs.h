@@ -56,6 +56,7 @@ enum TIMER_STATE
 
     TS_Q3Readp,  //Reading play
     TS_Q3Readt,  //Reading time
+    TS_Q3Listen_S,
     TS_Q3Listen, //Listening
     TS_Q3Pp,
     TS_Q3Pt,
@@ -65,6 +66,7 @@ enum TIMER_STATE
 
     TS_Q4Readp,
     TS_Q4Readt,
+    TS_Q4Listen_S,
     TS_Q4Listen,
     TS_Q4Pp,
     TS_Q4Pt,
@@ -72,6 +74,7 @@ enum TIMER_STATE
     TS_Q4Rt,
     TS_Q4Rf,
 
+    TS_Q5Listen_S,
     TS_Q5Listen,
     TS_Q5Pp,
     TS_Q5Pt,
@@ -79,6 +82,7 @@ enum TIMER_STATE
     TS_Q5Rt,
     TS_Q5Rf,
 
+    TS_Q6Listen_S,
     TS_Q6Listen,
     TS_Q6Pp,
     TS_Q6Pt,
