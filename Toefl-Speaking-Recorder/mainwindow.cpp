@@ -77,7 +77,7 @@ void MainWindow::on_btnStart_clicked()
         iq.Q5E = ui->chkQ5->isChecked();
         iq.Q5P = ui->spbQ5P->value();
         iq.Q5R = ui->spbQ5R->value();
-        iq.Q4Listening = listeningFiles[2];
+        iq.Q5Listening = listeningFiles[2];
 
         iq.Q6E = ui->chkQ6->isChecked();
         iq.Q6P = ui->spbQ6P->value();
