@@ -78,7 +78,7 @@ void TSR::setSaveLoc(QString loc)
     saveLoc = loc + "/";
 }
 
-void TSR::getSaveLoc()
+QString TSR::getSaveLoc()
 {
     return saveLoc;
 }

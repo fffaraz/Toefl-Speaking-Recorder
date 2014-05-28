@@ -38,7 +38,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 QString MainWindow::newPracticeName()
 {
-    //return QInputDialog::getText(this, "New Practice", "File Name", QLineEdit::Normal, "P1");
     QString svl = tsr.getSaveLoc();
     svl += "P";
 
@@ -67,7 +66,9 @@ QString MainWindow::newPracticeName()
             break;
         }
     }
+
     return "P" + QString::number(num);
+    //return QInputDialog::getText(this, "New Practice", "File Name", QLineEdit::Normal, "P" + QString::number(num));
 }
 
 void MainWindow::on_btnStart_clicked()
