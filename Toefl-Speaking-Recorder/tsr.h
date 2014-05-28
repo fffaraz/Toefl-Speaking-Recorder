@@ -25,6 +25,7 @@ public:
     int  getElapsedTime();
     int  getTotalTime();
     void setSaveLoc(QString loc);
+    QString getSaveLoc();
 
 private:
     QTime time;

@@ -66,6 +66,7 @@ private:
     QString loadListeningFile();
     void changePBarStyle(bool recording);
     void show_message(QString msg, QString title = "");
+    QString newPracticeName();
 };
 
 #endif // MAINWINDOW_H

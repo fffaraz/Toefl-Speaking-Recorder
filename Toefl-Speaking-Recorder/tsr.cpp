@@ -78,6 +78,11 @@ void TSR::setSaveLoc(QString loc)
     saveLoc = loc + "/";
 }
 
+void TSR::getSaveLoc()
+{
+    return saveLoc;
+}
+
 void TSR::start(InputQ iq)
 {
     memset(finishedQ, 0, sizeof(finishedQ));

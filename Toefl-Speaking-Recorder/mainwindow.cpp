@@ -36,6 +36,40 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QCoreApplication::processEvents();
 }
 
+QString MainWindow::newPracticeName()
+{
+    //return QInputDialog::getText(this, "New Practice", "File Name", QLineEdit::Normal, "P1");
+    QString svl = tsr.getSaveLoc();
+    svl += "P";
+
+    bool finished = false;
+    int  num = 0;
+
+    while(!finished)
+    {
+        num++;
+
+        QString svt = svl + QString::number(num) + "-Q";
+        bool found = false;
+
+        for(int i=1; i<=6; i++)
+        {
+            QFile f(svt + QString::number(i) + ".wav");
+            if(f.exists())
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if(!found)
+        {
+            break;
+        }
+    }
+    return "P" + QString::number(num);
+}
+
 void MainWindow::on_btnStart_clicked()
 {
     if(!tsr.isStarted())
@@ -45,7 +79,7 @@ void MainWindow::on_btnStart_clicked()
 
         updateUI(true);
         isWaiting = true;
-        iq.name = QInputDialog::getText(this, "New Practice", "File Name", QLineEdit::Normal, "P1");
+        iq.name = newPracticeName();
         isWaiting = false;
 
         if(iq.name.length() < 1)
@@ -206,6 +240,7 @@ void MainWindow::on_actionVersion_triggered()
 
 void MainWindow::on_actionSet_Location_triggered()
 {
+    if(tsr.isStarted()) return;
     QFileDialog fd(this, "Save Directory", QDir::currentPath());
     fd.setFileMode(QFileDialog::Directory);
     fd.setOption(QFileDialog::ShowDirsOnly); //?
