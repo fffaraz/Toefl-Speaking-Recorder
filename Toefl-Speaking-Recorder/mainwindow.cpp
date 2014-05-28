@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "0.12";
+    version = "1.0";
     isWaiting = false;
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());

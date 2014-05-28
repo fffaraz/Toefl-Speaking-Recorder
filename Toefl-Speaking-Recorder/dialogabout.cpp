@@ -6,6 +6,8 @@ DialogAbout::DialogAbout(QWidget *parent) :
     ui(new Ui::DialogAbout)
 {
     ui->setupUi(this);
+    ui->lblInfo->setOpenExternalLinks(true);
+    ui->lblDeveloper->setOpenExternalLinks(true);
 }
 
 DialogAbout::~DialogAbout()
