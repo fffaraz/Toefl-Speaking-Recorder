@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "1.0";
+    version = "1.0.1";
     isWaiting = false;
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
@@ -343,10 +343,11 @@ void MainWindow::onRequestCompleted(QNetworkReply *reply)
         {
             again0 = false;
             QString vstr;
-            vstr += "New Version Available \n";
-            vstr += "\t\t\t\t\n";
-            vstr += "Your   version :  " + version  + "\n";
-            vstr += "Latest version :  " + dlist[0] + "";
+            vstr += "New Version Available \n<hr>";
+            vstr += "<center><b>Download the latest version (" + dlist[0] + ") </b>\n\n";
+            vstr += "<a href=\"http://frz.ir/dl/projects/TSR/\">http://frz.ir/dl/projects/TSR/</a>\n.";
+            for(int i=0; i<100; i++) vstr += "&nbsp;";
+            vstr += ".</center>\n\n";
             show_message(vstr, "New Version");
         }
     }
@@ -387,9 +388,11 @@ void MainWindow::on_actionNone_triggered()
 
 void MainWindow::show_message(QString msg, QString title)
 {
+    msg = msg.replace('\n', "<br>\n");
     QMessageBox msgBox;
-    msgBox.setText(msg);
     msgBox.setWindowTitle(title);
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText(msg);
     //msgBox.setInformativeText("");
     msgBox.setIcon(QMessageBox::Information);
     msgBox.exec();
