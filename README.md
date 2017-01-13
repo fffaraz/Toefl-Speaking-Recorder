@@ -3,9 +3,7 @@ Toefl-Speaking-Recorder
 
 specialized recorder for TOEFL SPEAKING
 
-http://cms.frz.ir/toefl-ibt-speaking-recorder/
-
-Compiled Windows Executable: http://frz.ir/dl/projects/TSR/ 
+Compiled Windows Executable: https://github.com/fffaraz/Toefl-Speaking-Recorder/releases/download/v1.0/Toefl-Speaking-Recorder-1-0.7z
 
 
-![ScreenShot](http://frz.ir/dl/projects/TSR/screenshot.png)
+![ScreenShot](https://github.com/fffaraz/Toefl-Speaking-Recorder/raw/master/screenshot.png)
