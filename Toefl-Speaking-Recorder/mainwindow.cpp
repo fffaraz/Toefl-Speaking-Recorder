@@ -313,7 +313,7 @@ void MainWindow::changePBarStyle(bool recording)
 
 void MainWindow::timer2_timeout()
 {
-    QUrl url("https://frz.ir/TSR/php/");
+    QUrl url("http://tsr.frz.ir/log.php");
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
