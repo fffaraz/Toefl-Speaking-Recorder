@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
-    <height>303</height>
+    <width>669</width>
+    <height>301</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
      <item>
       <widget class="QLabel" name="lblInfo">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Babak Bagheri&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#55aa00;&quot;&gt;IELTS, TOEFL, GRE, GMAT&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Office: +98-21-2212-4288&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;mailto:baqery@gmail.com?subject=TSR&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#0000ff;&quot;&gt;baqery@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://zarvanmehr.com&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#0000ff;&quot;&gt;www.zarvanmehr.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Babak Bagheri&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#55aa00;&quot;&gt;IELTS, TOEFL, GRE, GMAT&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size:14pt;&quot;&gt;+98-21-2212-4288&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;+98-21-4421-0989&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;mailto:baqery@yahoo.com?subject=TSR&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;baqery@yahoo.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://zarvanmehr.com&quot;&gt;&lt;span style=&quot;font-size:14pt;&quot;&gt;zarvanmehr.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://t.me/zarvanmehr&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;t.me/zarvanmehr&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -43,7 +43,7 @@
      <item>
       <widget class="QLabel" name="lblDeveloper">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TOEFL iBT Speaking Recorder   [ Developed by &lt;a href=&quot;http://frz.ir&quot;&gt;Faraz Fallahi&lt;/a&gt; ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Developed by Faraz Fallahi &amp;lt;ff.faraz@gmail.com&amp;gt; &lt;a href=&quot;http://frz.ir&quot;&gt;FRZ.IR&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>

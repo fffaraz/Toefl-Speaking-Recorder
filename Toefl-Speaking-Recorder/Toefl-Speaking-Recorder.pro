@@ -4,33 +4,30 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui widgets multimedia
 
 TARGET = Toefl-Speaking-Recorder
 TEMPLATE = app
-CONFIG  += release
+CONFIG += release
 
 win32:RC_FILE = myapp.rc
 QMAKE_CXXFLAGS += -std=c++11
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
+SOURCES += main.cpp \
+    mainwindow.cpp \
     tsr.cpp \
     dialogabout.cpp \
     dialogaudiosettings.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS += mainwindow.h \
     tsr.h \
     dialogabout.h \
     structs.h \
     dialogaudiosettings.h \
     util.h
 
-FORMS    += mainwindow.ui \
+FORMS += mainwindow.ui \
     dialogabout.ui \
     dialogaudiosettings.ui
 
-RESOURCES += \
-    rc.qrc
+RESOURCES += rc.qrc

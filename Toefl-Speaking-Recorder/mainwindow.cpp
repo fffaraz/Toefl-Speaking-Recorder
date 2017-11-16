@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    version = "1.0.1";
+    version = "2.0.0";
     isWaiting = false;
     ui->setupUi(this);
     ui->lblStatus->setText(this->windowTitle());
@@ -313,7 +313,7 @@ void MainWindow::changePBarStyle(bool recording)
 
 void MainWindow::timer2_timeout()
 {
-    QUrl url("http://frz.ir/dl/projects/TSR/php/");
+    QUrl url("https://frz.ir/TSR/php/");
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
@@ -336,24 +336,21 @@ void MainWindow::onRequestCompleted(QNetworkReply *reply)
     QStringList dlist = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 
     if(dlist.size() < 1) return;
-    if(dlist[0] != version)
+    if(dlist[0].size() > 0 && dlist[0] != version)
     {
         static bool again0 = true;
         if(again0)
         {
             again0 = false;
             QString vstr;
-            vstr += "New Version Available \n<hr>";
-            vstr += "<center><b>Download the latest version (" + dlist[0] + ") </b>\n\n";
-            vstr += "<a href=\"http://frz.ir/dl/projects/TSR/\">http://frz.ir/dl/projects/TSR/</a>\n.";
-            for(int i=0; i<100; i++) vstr += "&nbsp;";
-            vstr += ".</center>\n\n";
-            show_message(vstr, "New Version");
+            vstr += "<b>Download the latest version (v" + dlist[0] + ")</b>\n\n";
+            vstr += "<a href=\"https://github.com/fffaraz/Toefl-Speaking-Recorder/releases\">https://github.com/fffaraz/Toefl-Speaking-Recorder/releases</a>\n\n";
+            show_message(vstr, "New Version Available");
         }
     }
 
     if(dlist.size() < 2) return;
-    if(dlist[1] != "")
+    if(dlist[1].size() > 0)
     {
         static bool again1 = true;
         if(again1)

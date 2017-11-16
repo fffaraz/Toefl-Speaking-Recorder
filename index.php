@@ -20,7 +20,7 @@ $hit++;
 file_put_contents($hitCounter, $hit);
 $r['hit'] = $hit;
 
-if(isset($_REQUEST['debug'])) 
+if(isset($_REQUEST['debug']))
 {
 	echo "<pre>";
 	print_r($r);
@@ -42,8 +42,7 @@ $log .= "------------------------------\n";
 file_put_contents($logFile, $log, FILE_APPEND);
 
 // Latest Version
-echo "1.0\n";
+echo "2.0.0\n";
 
 // Message
 //echo "Happy New Year !\n";
-
