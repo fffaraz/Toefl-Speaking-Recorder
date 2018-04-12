@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //timer.start(250);
     connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onRequestCompleted(QNetworkReply*)));
     QTimer::singleShot(1000, this, SLOT(timer2_timeout()));
+    // TODO: always on top
 }
 
 MainWindow::~MainWindow()
